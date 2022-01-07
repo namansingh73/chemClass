@@ -1,12 +1,12 @@
 import React from 'react';
-import icon from './education.png';
+import icon from './education2.png';
 import styles from './Logo.module.css';
 
 const Logo = () => {
   return (
     <div className={styles.logo}>
       <img src={icon} alt='chemclass' className={styles.icon} />
-      <p className={styles.brandName}>Chem Class</p>
+      <p className={styles.brandName}>ChemClass</p>
     </div>
   );
 };

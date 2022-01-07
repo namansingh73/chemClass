@@ -1,12 +1,13 @@
 import React from 'react';
+import styles from './Notifications.module.css';
 
 const Notifications = () => {
   return (
     <div>
-      <button>
+      <button className={styles.notificationBtn}>
         <i className='fas fa-wrench'></i>
       </button>
-      <button>
+      <button className={styles.notificationBtn}>
         <i class='far fa-bell'></i>
       </button>
     </div>

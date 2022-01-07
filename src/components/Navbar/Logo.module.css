@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: var(--font-family-secondary);
 }
 
 .icon {
@@ -10,5 +13,6 @@
 }
 
 .brandName {
+  margin-left: 1rem;
   font-size: 1.5rem;
 }

@@ -4,7 +4,10 @@ import styles from './Search.module.css';
 const Search = () => {
   return (
     <form className={styles.searchForm}>
-      <input type='text' placeholder='Search' className={styles.inputForm} />
+      <span className={styles.searchIcon}>
+        <i class='fas fa-search'></i>
+      </span>
+      <input type='text' placeholder='Search' className={styles.searchInput} />
     </form>
   );
 };

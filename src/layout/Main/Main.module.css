@@ -1,0 +1,6 @@
+.main {
+  background-color: var(--color-grey-light-1);
+  height: 100vw;
+  border-top-left-radius: 5vw;
+  border-top-right-radius: 3vw;
+}

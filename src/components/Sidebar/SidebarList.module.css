@@ -1,0 +1,29 @@
+.sidebarList {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  list-style: none;
+}
+
+.sidebarListItem {
+  color: var(--color-grey-dark-2);
+  padding: 0.5rem 0;
+}
+
+.sidebarListItem__active {
+  color: var(--color-grey-dark-1);
+}
+
+.sidebarListItem:hover {
+  color: var(--color-grey-dark-1);
+  font-weight: 600;
+}
+
+.sidebarListLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sidebarListIcon {
+  display: inline-block;
+  width: 3rem;
+}

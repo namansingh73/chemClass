@@ -1,0 +1,18 @@
+.searchForm {
+  background: var(--color-grey-light-2);
+  padding: 0.7rem 3rem;
+  border-radius: 5rem;
+  width: 20vw;
+  display: block;
+}
+
+.searchIcon {
+  color: var(--color-grey-dark-3);
+  margin-right: 1rem;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}

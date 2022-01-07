@@ -1,0 +1,13 @@
+.notificationBtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.notificationBtn:hover {
+  background-color: var(--color-grey-light-1);
+}
