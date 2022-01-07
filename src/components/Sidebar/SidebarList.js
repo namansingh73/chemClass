@@ -17,7 +17,7 @@ function SidebarList() {
       <li className={styles.sidebarListItem}>
         <a href='#!' className={styles.sidebarListLink}>
           <span className={styles.sidebarListIcon}>
-            <i class='fas fa-chalkboard' />
+            <i className='fas fa-chalkboard' />
           </span>
           Classrooms
         </a>
@@ -25,7 +25,7 @@ function SidebarList() {
       <li className={styles.sidebarListItem}>
         <a href='#!' className={styles.sidebarListLink}>
           <span className={styles.sidebarListIcon}>
-            <i class='far fa-calendar-alt' />
+            <i className='far fa-calendar-alt' />
           </span>
           Tasks
         </a>
@@ -33,7 +33,7 @@ function SidebarList() {
       <li className={styles.sidebarListItem}>
         <a href='#!' className={styles.sidebarListLink}>
           <span className={styles.sidebarListIcon}>
-            <i class='far fa-clipboard' />
+            <i className='far fa-clipboard' />
           </span>
           Notices
         </a>

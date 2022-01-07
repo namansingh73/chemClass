@@ -8,7 +8,7 @@ const Notifications = () => {
         <i className='fas fa-wrench'></i>
       </button>
       <button className={styles.notificationBtn}>
-        <i class='far fa-bell'></i>
+        <i className='far fa-bell'></i>
       </button>
     </div>
   );

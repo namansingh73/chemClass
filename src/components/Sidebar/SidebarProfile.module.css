@@ -1,9 +1,6 @@
 .sidebarProfile {
   display: flex;
   align-items: center;
-  background-color: var(--color-grey-light-1);
-  padding: 1rem 2rem;
-  border-radius: 2rem;
   cursor: pointer;
 }
 

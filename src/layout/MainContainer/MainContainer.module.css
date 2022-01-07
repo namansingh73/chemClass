@@ -1,4 +1,4 @@
 .mainContainer {
   display: grid;
-  grid-template-columns: 25rem auto 25rem;
+  grid-template-columns: 25rem auto max-content;
 }

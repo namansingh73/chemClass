@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 import MainContainer from './layout/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
 import Main from './layout/Main/Main';
+import MiscSidebar from './components/MiscSidebar/MiscSidebar';
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       <MainContainer>
         <Sidebar />
         <Main />
-        <div></div>
+        <MiscSidebar />
       </MainContainer>
     </div>
   );
