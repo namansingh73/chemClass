@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import MainConatiner from './layout/MainContainer/MainConatiner';
+import MainContainer from './layout/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
 import Main from './layout/Main/Main';
 
@@ -8,11 +8,11 @@ const App = () => {
   return (
     <div className='App'>
       <Navbar />
-      <MainConatiner>
+      <MainContainer>
         <Sidebar />
         <Main />
         <div></div>
-      </MainConatiner>
+      </MainContainer>
     </div>
   );
 };
