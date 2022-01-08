@@ -1,35 +1,38 @@
 import React from 'react';
-import styles from './CircularProgessBar.module.scss';
+import styles from './CircularProgessBar.module.css';
 
 const CircularProgressBar = ({ color, percentage, size }) => {
-  percentage = Math.round(percentage);
-
-  const customStyles = {};
-
-  if (color) {
-    customStyles['--current-color'] = `var(--color-${color})`;
-  }
-
-  if (size) {
-    customStyles.fontSize = size;
-  }
-
   return (
+    // Pie Wrapper
     <div
-      style={customStyles}
-      className={`${styles.setSize} ${styles.chartsContainer}`}
+      style={{
+        '--current-color': color && `var(--color-${color})`,
+        '--size': size,
+        '--percentage': percentage,
+      }}
+      className={styles.pieWrapper}
     >
+      {/* Label */}
+      <span className={styles.label}>
+        {percentage}
+        <span className={styles.label__smaller}>%</span>
+      </span>
+
+      {/* Pie */}
       <div
-        className={`${styles.pieWrapper} ${styles[`progress${percentage}`]}`}
+        className={`${styles.pie} ${
+          percentage > 50 && styles.pie__greaterThan50
+        }`}
       >
-        <span className={styles.label}>
-          {percentage}
-          <span className={styles.smaller}>%</span>
-        </span>
-        <div className={styles.pie}>
-          <div className={`${styles.leftSide} ${styles.halfCircle}`}></div>
-          <div className={`${styles.rightSide} ${styles.halfCircle}`}></div>
-        </div>
+        {/* Half Circle - Left Side */}
+        <div
+          className={`${styles.halfCircle__leftSide} ${styles.halfCircle}`}
+        />
+
+        {/* Half Circle - Right Side */}
+        <div
+          className={`${styles.halfCircle__rightSide} ${styles.halfCircle}`}
+        />
       </div>
     </div>
   );
