@@ -1,8 +1,8 @@
 // -- vars
 $bg-color: #34495e;
 $default-size: 1em;
-$label-font-size: $default-size / 4;
-$label-font-size-redo: $default-size * 4;
+$label-font-size: calc($default-size / 4);
+$label-font-size-redo: calc($default-size * 4);
 
 // -- mixins
 @mixin size($width, $height) {
@@ -39,6 +39,8 @@ $label-font-size-redo: $default-size * 4;
 }
 
 .chartsContainer {
+  --current-color: var(--color-blue);
+
   &:after {
     clear: both;
     content: '';
@@ -49,10 +51,7 @@ $label-font-size-redo: $default-size * 4;
 .pieWrapper {
   @include size($default-size, $default-size);
   float: left;
-  margin: 15px;
   position: relative;
-
-  --current-color: var(--color-blue);
 
   &:nth-child(3n + 1) {
     clear: both;
@@ -60,16 +59,16 @@ $label-font-size-redo: $default-size * 4;
 
   .pie {
     @include size(100%, 100%);
-    clip: rect(0, $default-size, $default-size, $default-size / 2);
+    clip: rect(0, $default-size, $default-size, calc($default-size / 2));
     left: 0;
     position: absolute;
     top: 0;
 
     .halfCircle {
       @include size(100%, 100%);
-      border: ($default-size / 10) solid #3498db;
+      border: calc($default-size / 10) solid #3498db;
       border-radius: 50%;
-      clip: rect(0, $default-size / 2, $default-size, 0);
+      clip: rect(0, calc($default-size / 2), $default-size, 0);
       left: 0;
       position: absolute;
       top: 0;
@@ -79,17 +78,17 @@ $label-font-size-redo: $default-size * 4;
   .label {
     background: $bg-color;
     border-radius: 50%;
-    bottom: $label-font-size-redo / 10;
+    bottom: calc($label-font-size-redo / 10);
     color: #ecf0f1;
     cursor: default;
     display: block;
     font-size: $label-font-size;
-    left: $label-font-size-redo / 10;
-    line-height: $label-font-size-redo * 0.7;
+    left: calc($label-font-size-redo / 10);
+    line-height: calc($label-font-size-redo * 0.7);
     position: absolute;
-    right: $label-font-size-redo / 10;
+    right: calc($label-font-size-redo / 10);
     text-align: center;
-    top: $label-font-size-redo / 10;
+    top: calc($label-font-size-redo / 10);
 
     .smaller {
       color: #bdc3c7;
@@ -101,7 +100,7 @@ $label-font-size-redo: $default-size * 4;
 
   .shadow {
     @include size(100%, 100%);
-    border: $default-size / 10 solid #bdc3c7;
+    border: calc($default-size / 10) solid #bdc3c7;
     border-radius: 50%;
   }
 
@@ -110,32 +109,4 @@ $label-font-size-redo: $default-size * 4;
       @include draw-progress($i);
     }
   }
-
-  // &.progress30 {
-  //   @include draw-progress(30, #3498db);
-  // }
-
-  // &.progress60 {
-  //   @include draw-progress(60, #9b59b6);
-  // }
-
-  // &.progress69 {
-  //   @include draw-progress(69, #9b59b6);
-  // }
-
-  // &.progress90 {
-  //   @include draw-progress(90, #e67e22);
-  // }
-
-  // &.progress45 {
-  //   @include draw-progress(45, #1abc9c);
-  // }
-
-  // &.progress75 {
-  //   @include draw-progress(75, #8e44ad);
-  // }
-
-  // &.progress95 {
-  //   @include draw-progress(95, #e74c3c);
-  // }
 }

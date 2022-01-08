@@ -5,14 +5,38 @@
   letter-spacing: 1px;
 }
 
+.DayPicker-Months {
+  height: 31.5rem;
+  justify-content: flex-start;
+}
+
+.DayPicker-Month {
+  border-collapse: separate;
+  border-spacing: 0.5rem;
+}
+
 .DayPicker-Day {
   padding: 0.1rem;
   border-radius: 25%;
+  background-color: var(--color-grey-light-2);
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid transparent;
+}
+
+.DayPicker-Day:hover:not(.DayPicker-Day--outside) {
+  border: 2px solid var(--color-new-blue);
+  cursor: pointer;
+}
+
+.DayPicker-Day--outside {
+  background-color: transparent;
 }
 
 .DayPicker-Day--today {
   color: var(--color-white);
-  font-weight: 700;
-  background: var(--color-grey-dark-1);
+  background-color: var(--color-new-blue);
   box-shadow: var(--shadow-secondary);
+  letter-spacing: 1px;
+  font-weight: normal;
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import DayPicker from 'react-day-picker';
 import MiscSidebarClassesEvents from './MiscSidebarClassesEvents';
-import 'react-day-picker/lib/style.css';
+import styles from './MiscSidebar.module.css';
 
 const MiscSidebar = () => {
   return (
-    <div>
+    <div className={styles.miscSidebar}>
       <DayPicker />
       <MiscSidebarClassesEvents />
     </div>

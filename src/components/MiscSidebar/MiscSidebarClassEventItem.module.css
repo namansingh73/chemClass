@@ -1,0 +1,40 @@
+.miscSidebarClassEventItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.miscSidebarClassEventItem:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.logoBox {
+  width: 7rem;
+  height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 80%;
+}
+
+.mainContent {
+  width: 13rem;
+  margin-left: 2rem;
+}
+
+.subject {
+  font-size: 1.4rem;
+}
+
+.date {
+  margin-top: -0.1rem;
+  font-size: 1.2rem;
+  color: var(--color-grey-dark-2);
+}
+
+.arrow {
+  font-size: 2rem;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CircularProgessBar.module.scss';
 
-const CircularProgressBar = ({ color, percentage }) => {
+const CircularProgressBar = ({ color, percentage, size }) => {
   percentage = Math.round(percentage);
 
   const customStyles = {};
@@ -10,14 +10,16 @@ const CircularProgressBar = ({ color, percentage }) => {
     customStyles['--current-color'] = `var(--color-${color})`;
   }
 
-  console.log(customStyles);
-
-  console.log(color);
+  if (size) {
+    customStyles.fontSize = size;
+  }
 
   return (
-    <div className={`${styles.setSize} ${styles.chartsContainer}`}>
+    <div
+      style={customStyles}
+      className={`${styles.setSize} ${styles.chartsContainer}`}
+    >
       <div
-        style={customStyles}
         className={`${styles.pieWrapper} ${styles[`progress${percentage}`]}`}
       >
         <span className={styles.label}>
