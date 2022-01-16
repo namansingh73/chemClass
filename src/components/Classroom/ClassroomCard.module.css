@@ -1,0 +1,68 @@
+.classroomCard {
+  background-color: var(--color-white);
+  border-radius: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: 0.2s;
+}
+
+.classroomCard:hover {
+  transform: translateY(-1px);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 4px 10px;
+  cursor: pointer;
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  border-radius: 2rem;
+}
+
+.studentsCount {
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  background-color: var(--color-white);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  opacity: 85%;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1rem;
+  width: 6.2rem;
+  box-shadow: var(--shadow-primary);
+}
+
+.iconStudent {
+  color: var(--color-yellow);
+}
+
+.main {
+  padding: 0.8rem 1.6rem 2rem;
+}
+
+.subjectName {
+  font-weight: 400;
+}
+
+.instructor {
+  font-size: 1.5rem;
+  color: var(--color-grey-dark-2);
+}
+
+.instructorIcon {
+  /* color: var(--color-grey-dark-4); */
+}
+
+.assignment {
+  margin-top: 0.6rem;
+  font-size: 1.4rem;
+}
+
+.assignment__due {
+  color: var(--color-red);
+}
+
+.assignment__noDue {
+  color: var(--color-green);
+}

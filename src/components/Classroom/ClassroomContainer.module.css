@@ -1,0 +1,6 @@
+.rootContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  row-gap: 3.5rem;
+  column-gap: 2.5rem;
+}

@@ -4,6 +4,7 @@ import MainContainer from './layout/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
 import Main from './layout/Main/Main';
 import MiscSidebar from './components/MiscSidebar/MiscSidebar';
+import Classroom from './pages/Classroom/Classroom';
 
 const App = () => {
   return (
@@ -11,7 +12,9 @@ const App = () => {
       <Navbar />
       <MainContainer>
         <Sidebar />
-        <Main />
+        <Main>
+          <Classroom />
+        </Main>
         <MiscSidebar />
       </MainContainer>
     </div>

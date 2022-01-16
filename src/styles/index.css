@@ -19,6 +19,7 @@ html {
 /* Setting box sizing border box so that everyone can inherit */
 body {
   box-sizing: border-box;
+  user-select: none;
 }
 
 /* ----------------------------------

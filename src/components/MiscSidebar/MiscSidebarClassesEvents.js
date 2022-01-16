@@ -11,7 +11,7 @@ const MiscSidebarClassesEvents = () => {
           type='class'
           percentage={70}
           title='Mathematics'
-          color='yellow'
+          color='yellowOrange'
           date='15th Janurary, 2022'
         />
 
