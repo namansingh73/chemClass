@@ -1,0 +1,7 @@
+.subjectCard {
+  border: 1px solid var(--color-grey-light-4);
+  padding: 1.6rem;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  background-color: var(--color-grey-light-1);
+}

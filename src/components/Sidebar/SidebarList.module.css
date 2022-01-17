@@ -9,18 +9,19 @@
   padding: 0.8rem 0;
 }
 
-.sidebarListItem__active {
-  color: var(--color-grey-dark-1);
-}
-
-.sidebarListItem:hover {
-  color: var(--color-grey-dark-1);
-  font-weight: 600;
-}
-
 .sidebarListLink {
   color: inherit;
   text-decoration: none;
+}
+
+.sidebarListLink__active {
+  color: var(--color-grey-dark-1);
+  font-weight: 500;
+}
+
+.sidebarListLink:hover {
+  color: var(--color-grey-dark-1);
+  font-weight: 600;
 }
 
 .sidebarListIcon {

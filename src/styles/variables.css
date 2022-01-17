@@ -76,11 +76,11 @@
   --color-new-blue-darker: #2200a0;
 
   /* Primary color */
-  --color-primary-lighter: var(--color-yellow-lighter);
-  --color-primary-light: var(--color-yellow-light);
-  --color-primary: var(--color-yellow);
-  --color-primary-dark: var(--color-yellow-dark);
-  --color-primary-darker: var(--color-yellow-darker);
+  --color-primary-lighter: var(--color-yellowOrange-lighter);
+  --color-primary-light: var(--color-yellowOrange-light);
+  --color-primary: var(--color-yellowOrange);
+  --color-primary-dark: var(--color-yellowOrange-dark);
+  --color-primary-darker: var(--color-yellowOrange-darker);
 
   /* Secondary color */
   --color-secondary-lighter: var(--color-blue-lighter);

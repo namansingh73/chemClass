@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './AddClass.module.css';
-import bgImage from '../../pages/Classroom/images/bgImage.jpg';
+import bgImage from '../../images/addClass.jpg';
 
 const AddClass = () => {
   return (

@@ -1,42 +1,69 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styles from './SidebarList.module.css';
 
 function SidebarList() {
   return (
     <ul className={styles.sidebarList}>
-      <li
-        className={`${styles.sidebarListItem} ${styles.sidebarListItem__active}`}
-      >
-        <a href='#!' className={styles.sidebarListLink}>
+      <li className={styles.sidebarListItem}>
+        <NavLink
+          to='/'
+          className={({ isActive }) =>
+            `${styles.sidebarListLink} ${
+              isActive ? styles.sidebarListLink__active : ''
+            }`
+          }
+        >
           <span className={styles.sidebarListIcon}>
             <i className='fas fa-store-alt' />
           </span>
           Home
-        </a>
+        </NavLink>
       </li>
       <li className={styles.sidebarListItem}>
-        <a href='#!' className={styles.sidebarListLink}>
+        <NavLink
+          to='/classrooms'
+          className={({ isActive }) =>
+            `${styles.sidebarListLink} ${
+              isActive ? styles.sidebarListLink__active : ''
+            }`
+          }
+        >
           <span className={styles.sidebarListIcon}>
             <i className='fas fa-chalkboard' />
           </span>
           Classrooms
-        </a>
+        </NavLink>
       </li>
       <li className={styles.sidebarListItem}>
-        <a href='#!' className={styles.sidebarListLink}>
+        <NavLink
+          to='/tasks'
+          className={({ isActive }) =>
+            `${styles.sidebarListLink} ${
+              isActive ? styles.sidebarListLink__active : ''
+            }`
+          }
+        >
           <span className={styles.sidebarListIcon}>
             <i className='far fa-calendar-alt' />
           </span>
           Tasks
-        </a>
+        </NavLink>
       </li>
       <li className={styles.sidebarListItem}>
-        <a href='#!' className={styles.sidebarListLink}>
+        <NavLink
+          to='/notices'
+          className={({ isActive }) =>
+            `${styles.sidebarListLink} ${
+              isActive ? styles.sidebarListLink__active : ''
+            }`
+          }
+        >
           <span className={styles.sidebarListIcon}>
             <i className='far fa-clipboard' />
           </span>
           Notices
-        </a>
+        </NavLink>
       </li>
     </ul>
   );
