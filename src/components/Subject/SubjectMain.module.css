@@ -10,6 +10,6 @@
   margin-right: 1.5rem;
 }
 
-/* .right {
-  border: 1px solid #000;
-} */
+.right {
+  flex: 1;
+}

@@ -1,9 +1,14 @@
 import React from 'react';
 import styles from './SubjectCard.module.css';
 
-const SubjectCard = ({ className, children, ...otherProps }) => {
+const SubjectCard = ({ className, children, noPadding, ...otherProps }) => {
   return (
-    <div className={`${className} ${styles.subjectCard}`} {...otherProps}>
+    <div
+      className={`${className} ${styles.subjectCard} ${
+        noPadding && styles.subjectCard__noPadding
+      }`}
+      {...otherProps}
+    >
       {children}
     </div>
   );

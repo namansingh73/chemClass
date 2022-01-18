@@ -9,7 +9,9 @@ const SubjectMain = (props) => {
       <div className={styles.left}>
         <LeftBlock />
       </div>
-      <div className={styles.right}>{/* <RightBlock /> */}</div>
+      <div className={styles.right}>
+        <RightBlock />
+      </div>
     </div>
   );
 };

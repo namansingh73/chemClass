@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import SubjectCard from './SubjectCard';
 import Button from '../../utils/Button/Button';
 import styles from './LeftBlock.module.css';
-// import videoIcon from './videoCamera.png';
 
 const LeftBlock = () => {
+  const assignmentCount = 0;
+
   return (
     <Fragment>
       <SubjectCard className={styles.classLink}>
@@ -12,14 +14,9 @@ const LeftBlock = () => {
           <span className={styles.classLinkIcon}>
             <i className='fas fa-video'></i>
           </span>
-          {/* <img
-            src={videoIcon}
-            alt='Class Link'
-            className={styles.classLinkIcon}
-          /> */}
           <span className={styles.classLinkText}>Meet</span>
           <button className={styles.classLinkCopyBtn}>
-            <i class='far fa-copy'></i>
+            <i className='far fa-copy'></i>
           </button>
         </div>
         <div className={styles.classLinkBottom}>
@@ -30,8 +27,30 @@ const LeftBlock = () => {
       </SubjectCard>
 
       <SubjectCard className={styles.assignmentInfo}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
-        necessitatibus ullam illum.
+        <h3 className={styles.assignmentInfoHeading}>
+          <i className={`fas fa-bullhorn ${styles.assignmentInfoIcon}`}></i>{' '}
+          Upcoming
+        </h3>
+        {assignmentCount !== 0 && (
+          <p
+            className={`${styles.assignmentInfoStatus} ${styles.assignmentInfoStatus__due}`}
+          >
+            <i className='fas fa-exclamation-circle'></i> {assignmentCount}{' '}
+            assigments due
+          </p>
+        )}
+        {assignmentCount === 0 && (
+          <p
+            className={`${styles.assignmentInfoStatus} ${styles.assignmentInfoStatus__noDue}`}
+          >
+            <i className='fas fa-check-circle'></i> No assigment due, Enjoy!
+          </p>
+        )}
+        <div className={styles.assignmentInfoView}>
+          <Link to='#!' className={styles.assignmentInfoViewLink}>
+            View All
+          </Link>
+        </div>
       </SubjectCard>
     </Fragment>
   );

@@ -1,0 +1,75 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1.6rem;
+}
+
+.instructorIcon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.instructorTime {
+  margin-left: 1.5rem;
+  margin-top: -0.5rem;
+}
+
+.time {
+  margin-top: -0.5rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  color: var(--color-grey-dark-2);
+}
+
+.mainContent {
+  padding: 0 1.6rem 1.6rem;
+}
+
+.addComment {
+  display: flex;
+  padding: 1.6rem;
+  border-top: 1px solid var(--color-grey-light-4);
+}
+
+.addCommentIcon {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1.5rem;
+}
+
+.addCommentForm {
+  flex: 1;
+  border: 1px solid var(--color-grey-light-4);
+  border-radius: 3rem;
+  display: flex;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.4rem;
+  background-color: var(--color-white);
+}
+
+.addCommentForm__focused {
+  border: 1px solid var(--color-green);
+}
+
+.addCommentInput {
+  flex: 1;
+  resize: none;
+  margin-right: 1rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+::-webkit-input-placeholder {
+  color: var(--color-grey-dark-3);
+}
+
+.addCommentBtn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: var(--color-grey-dark-3);
+}
