@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1.6rem;
+}
+
+.instructorIcon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.instructorTime {
+  margin-left: 1.5rem;
+  margin-top: -0.5rem;
+}
+
+.time {
+  margin-top: -0.5rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  color: var(--color-grey-dark-2);
+}

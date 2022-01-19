@@ -1,0 +1,7 @@
+.attachments {
+  display: grid;
+  padding: 0 1.6rem 1.6rem;
+
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}

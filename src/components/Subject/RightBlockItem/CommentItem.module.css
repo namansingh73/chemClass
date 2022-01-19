@@ -1,0 +1,69 @@
+.commentItem {
+  display: flex;
+}
+
+.commentItem:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.commentAuthorIcon {
+  width: 2.8rem;
+  height: 2.8rem;
+  margin-right: 1.5rem;
+  margin-top: 1rem;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+}
+
+.authorName {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.deleteCommentBtn {
+  display: inline-block;
+  margin-left: auto;
+  outline: none;
+  border: none;
+  font-size: 1.5rem;
+  background-color: transparent;
+  color: var(--color-grey-dark-2);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.2s;
+  position: relative;
+}
+
+.deleteCommentBtn i {
+  z-index: 100;
+  position: relative;
+}
+
+.deleteCommentBtn:hover::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--color-grey-light-3);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.time {
+  color: var(--color-grey-dark-2);
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  letter-spacing: 1px;
+}
+
+.commentBody {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}

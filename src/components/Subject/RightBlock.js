@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import RightBlockItem from './RightBlockItem';
+import RightBlockItem from './RightBlockItem/RightBlockItem';
 
 const RightBlock = () => {
   return (

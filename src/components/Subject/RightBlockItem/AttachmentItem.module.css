@@ -1,0 +1,37 @@
+.attachmentItem {
+  border: 1px solid var(--color-grey-light-4);
+  border-radius: 0.8rem;
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.attachmentItem:hover .filename {
+  color: var(--color-blue);
+}
+
+.attachmentImg {
+  display: inline-block;
+  width: 35%;
+  border-top-left-radius: 0.8rem;
+  border-bottom-left-radius: 0.8rem;
+  margin-left: -1px;
+}
+
+.description {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.filename {
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.fileformat {
+  color: var(--color-grey-dark-2);
+  font-size: 1.5rem;
+}
