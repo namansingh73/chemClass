@@ -19,10 +19,12 @@ const Button = (props) => {
   if (props.fullWidth) {
     className += ' ' + styles.buttonFullWidth;
   }
+  if (props.rounded) {
+    className += ' ' + styles.rounded;
+  }
   if (props.className) {
     className += ' ' + props.className;
   }
-
   return (
     <button
       className={className}

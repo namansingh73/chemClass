@@ -1,5 +1,5 @@
 import React from 'react';
-import icon from './education2.png';
+import icon from './education.png';
 import styles from './Logo.module.css';
 
 const Logo = () => {

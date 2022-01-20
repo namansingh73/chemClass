@@ -4,3 +4,8 @@
   border-top-right-radius: 3vw;
   padding: 3vw 2vw;
 }
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: 25rem auto max-content;
+}

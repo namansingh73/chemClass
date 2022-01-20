@@ -55,3 +55,7 @@
 .buttonFullWidth {
   width: 100%;
 }
+
+.rounded {
+  border-radius: 100px;
+}

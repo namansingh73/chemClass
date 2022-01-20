@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../../layout/Card/Card';
-import CircularProgressBar from '../CircularProgessBar/CircularProgressBar';
+import CircularProgressBar from '../../components/CircularProgessBar/CircularProgressBar';
 import styles from './MiscSidebarClassEventItem.module.css';
 import calendarImg from './calendar.png';
 
