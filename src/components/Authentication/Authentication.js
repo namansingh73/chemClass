@@ -89,7 +89,10 @@ const Authentication = (props) => {
             {props.type === 'Sign Up'
               ? 'Already have an account?'
               : 'Not registered yet?'}{' '}
-            <Link to={props.redirectTo} className={styles.signIn}>
+            <Link
+              to={props.type === 'Sign Up' ? '/login' : '/signup'}
+              className={styles.signIn}
+            >
               {props.type === 'Sign Up' ? 'Sign In' : 'Create an Account'}
             </Link>
           </span>
