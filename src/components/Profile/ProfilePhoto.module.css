@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+.avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+}
+
+.input {
+  display: none;
+}
+
+.label {
+  margin-left: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s ease-in-out;
+}
+
+.label::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  width: 50%;
+  height: 5px;
+  margin: px 0 0;
+  transition: all 0.1s ease-in-out;
+  transition-duration: 0.4s;
+  opacity: 0;
+  background-color: var(--color-yellowOrange-dark);
+  left: 0;
+  opacity: 1;
+}
+
+.label:hover::before {
+  width: 100%;
+  opacity: 1;
+}

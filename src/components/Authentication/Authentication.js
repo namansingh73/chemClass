@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import Input from './Input';
+import Input from '../../utils/Input/Input';
 import Button from '../../utils/Button/Button';
 import styles from './Authentication.module.css';
 import logo from './logo.png';
