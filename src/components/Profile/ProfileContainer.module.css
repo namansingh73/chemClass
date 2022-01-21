@@ -11,6 +11,23 @@
   border-radius: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 6rem;
+  padding-left: 11rem;
+  position: relative;
+}
+
+.profileContainer::before {
+  content: '';
+  display: block;
+  background: url('./bannerBG.jpg');
+  background-size: cover;
+  background-position: right;
+  width: 5rem;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
 }
 
 .profileIcon {
