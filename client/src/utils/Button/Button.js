@@ -1,38 +1,53 @@
+import React, { Fragment } from 'react';
 import styles from './Button.module.css';
 
-const Button = (props) => {
+const Button = ({
+  color,
+  white,
+  big,
+  fullWidth,
+  rounded,
+  className,
+  loading,
+  children,
+  ...otherProps
+}) => {
   const style = {};
 
-  if (props.color) {
-    style['--current-color'] = `var(--color-${props.color})`;
-    style['--current-color-lighter'] = `var(--color-${props.color}-lighter)`;
-    style['--current-color-darker'] = `var(--color-${props.color}-darker)`;
+  if (color) {
+    style['--current-color'] = `var(--color-${color})`;
+    style['--current-color-lighter'] = `var(--color-${color}-lighter)`;
+    style['--current-color-darker'] = `var(--color-${color}-darker)`;
   }
 
-  let className = styles.button;
-  if (props.white) {
-    className += ' ' + styles.buttonWhite;
+  let classNameAct = styles.button;
+  if (white) {
+    classNameAct += ' ' + styles.buttonWhite;
   }
-  if (props.big) {
-    className += ' ' + styles.buttonBig;
+  if (big) {
+    classNameAct += ' ' + styles.buttonBig;
   }
-  if (props.fullWidth) {
-    className += ' ' + styles.buttonFullWidth;
+  if (fullWidth) {
+    classNameAct += ' ' + styles.buttonFullWidth;
   }
-  if (props.rounded) {
-    className += ' ' + styles.rounded;
+  if (rounded) {
+    classNameAct += ' ' + styles.rounded;
   }
-  if (props.className) {
-    className += ' ' + props.className;
+  if (loading) {
+    classNameAct += ' ' + loading;
   }
+  if (className) {
+    classNameAct += ' ' + className;
+  }
+
   return (
-    <button
-      className={className}
-      style={style}
-      disabled={props.disabled}
-      onClick={props.onClick}
-    >
-      {props.children}
+    <button className={classNameAct} {...otherProps}>
+      {loading && (
+        <Fragment>
+          <i className='fas fa-circle-notch fa-spin'></i> Loading
+        </Fragment>
+      )}
+      {!loading && children}
     </button>
   );
 };

@@ -1,8 +1,13 @@
 import React from 'react';
-import Authentication from '../../components/Authentication/Authentication';
+import AuthenticationMain from '../../components/Authentication/AuthenticationMain';
+import SignupBody from '../../components/Authentication/Signup';
 
 const Signup = () => {
-  return <Authentication type='Sign Up' redirectTo='/login' />;
+  return (
+    <AuthenticationMain type='Sign Up'>
+      <SignupBody />
+    </AuthenticationMain>
+  );
 };
 
 export default Signup;

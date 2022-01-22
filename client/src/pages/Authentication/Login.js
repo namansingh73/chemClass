@@ -1,8 +1,13 @@
 import React from 'react';
-import Authentication from '../../components/Authentication/Authentication';
+import AuthenticationMain from '../../components/Authentication/AuthenticationMain';
+import LoginBody from '../../components/Authentication/Login';
 
 const Login = () => {
-  return <Authentication type='Login' />;
+  return (
+    <AuthenticationMain type='Login'>
+      <LoginBody />
+    </AuthenticationMain>
+  );
 };
 
 export default Login;

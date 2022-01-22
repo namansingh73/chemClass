@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--color-grey-light-1);
+  padding: 3rem 0;
 }
 
 .mainContainer {
@@ -89,51 +89,6 @@
 
 .inputs {
   margin-top: 2rem;
-}
-
-.termsConditionsLink {
-  text-decoration: none;
-  color: var(--color-yellowOrange);
-}
-
-.checkboxLabel {
-  font-size: 1.4rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  margin-top: 2.5rem;
-}
-
-.checkboxInput {
-  display: none;
-}
-
-.checkboxActual {
-  display: inline-block;
-  width: 1.3rem;
-  height: 1.3rem;
-  margin-right: 1rem;
-  border-radius: 0.3rem;
-  border: 1px solid var(--color-grey-dark-3);
-  margin-bottom: 2px;
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: 1.3rem;
-  text-align: center;
-  color: #fff;
-}
-
-.checkboxInput:checked + .checkboxActual {
-  border: 1px solid var(--color-yellowOrange);
-  background: var(--color-yellowOrange);
-}
-
-.classLinkBottom {
-  margin-top: 2.5rem;
-}
-
-.classLinkBtn {
-  font-weight: 500;
 }
 
 .alternateOption {
