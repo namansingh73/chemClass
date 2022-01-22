@@ -4,6 +4,7 @@ import ProfilePhoto from './ProfilePhoto';
 import styles from './ProfileContainer.module.css';
 import profileIcon from './profile.png';
 import Button from '../../utils/Button/Button';
+
 const ProfileContainer = () => {
   return (
     <div className={styles.outerContainer}>

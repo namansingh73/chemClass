@@ -1,5 +1,4 @@
-import React from 'react';
-import Main from '../../layout/Main/Main';
+import React, { Fragment } from 'react';
 import ClassroomContainer from '../../components/Classroom/ClassroomContainer';
 import AddClass from '../../components/Classroom/AddClass';
 import ClassroomCard from '../../components/Classroom/ClassroomCard';
@@ -11,7 +10,7 @@ import image5 from '../../images/classroom-5.jpg';
 
 const Classroom = () => {
   return (
-    <Main>
+    <Fragment>
       <ClassroomContainer>
         <ClassroomCard
           image={image1}
@@ -63,7 +62,7 @@ const Classroom = () => {
         />
         <AddClass />
       </ClassroomContainer>
-    </Main>
+    </Fragment>
   );
 };
 
