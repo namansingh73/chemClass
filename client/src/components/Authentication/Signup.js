@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import alertActions from '../../store/alert/alert-actions';
 import Input from '../../utils/Input/Input';
 import Button from '../../utils/Button/Button';
 import styles from './LoginSignup.module.css';
@@ -11,15 +14,47 @@ const Signup = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const submitHandler = async (event) => {
+    event.preventDefault();
+
+    if (password !== passwordConfirm) {
+      dispatch(
+        alertActions.alert({
+          alertType: 'Error',
+          info: "Passwords doesn't match!",
+        })
+      );
+      return;
+    }
+
     setLoading(true);
 
-    const data = { name, email, password, passwordConfirm };
-    event.preventDefault();
-    const user = await axios.post('/api/v1/users/signup', data);
-    console.log(user.data);
+    try {
+      const data = { name, email, password, passwordConfirm };
+      const user = await axios.post('/api/v1/users/signup', data);
+      console.log(user);
 
-    setLoading(false);
+      dispatch(
+        alertActions.alert({
+          alertType: 'Success',
+          info: 'Welcome to ChemClass!',
+        })
+      );
+
+      navigate('/');
+    } catch (err) {
+      setLoading(false);
+
+      dispatch(
+        alertActions.alert({
+          alertType: 'Error',
+          info: 'Something went wrong!',
+        })
+      );
+    }
   };
 
   return (

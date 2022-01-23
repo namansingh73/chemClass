@@ -4,7 +4,8 @@
   right: 2rem;
   background-color: var(--color-grey-light-1);
 
-  --current-color: var(--color-green);
+  /* Not mandatory as it is replaced by react */
+  --current-color: var(--color-blue);
 
   box-shadow: var(--shadow-primary);
 

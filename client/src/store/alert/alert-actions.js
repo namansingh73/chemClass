@@ -3,12 +3,9 @@ import { alertActions } from './alert-slice';
 const alert = ({ alertType, info }) => {
   return (dispatch) => {
     const timeoutId = setTimeout(() => {
-      dispatch(alertActions.removeAlert());
-    }, 30000);
-
-    console.log(timeoutId);
-
-    dispatch(alertActions.addAlert({ alertType, info, timeoutId }));
+      dispatch(alertActions.clearAlert());
+    }, 5000);
+    dispatch(alertActions.setAlert({ alertType, info, timeoutId }));
   };
 };
 

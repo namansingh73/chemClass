@@ -8,15 +8,19 @@ const alertSlice = createSlice({
     timeoutId: '',
   },
   reducers: {
-    addAlert(state, action) {
-      clearTimeout(state.timeoutId);
+    setAlert(state, action) {
+      if (state.timeoutId === '') {
+        clearTimeout(state.timeoutId);
+      }
       state.alertType = action.payload.alertType;
       state.info = action.payload.info;
       state.timeoutId = action.payload.timeoutId;
     },
 
-    removeAlert(state, action) {
-      clearTimeout(state.timeoutId);
+    clearAlert(state, action) {
+      if (state.timeoutId === '') {
+        clearTimeout(state.timeoutId);
+      }
       state.alertType = '';
       state.info = '';
       state.timeoutId = '';
