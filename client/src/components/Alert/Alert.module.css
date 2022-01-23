@@ -1,0 +1,58 @@
+.alert {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--color-grey-light-1);
+
+  --current-color: var(--color-green);
+
+  box-shadow: var(--shadow-primary);
+
+  border-left: 1rem solid var(--current-color);
+  border-radius: 3px;
+
+  padding: 1rem 2.5rem;
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  gap: 2.5rem;
+  align-items: center;
+
+  font-size: 1.4rem;
+  letter-spacing: 0.2px;
+}
+
+.heading {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.info {
+  font-size: 1.6rem;
+}
+
+.icon {
+  background-color: var(--current-color);
+  font-size: 1.4rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 2.2rem;
+  color: var(--color-grey-dark-2);
+  transition: all 0.2s;
+  font-size: 2.5rem;
+}
+
+.closeBtn:hover {
+  color: var(--color-grey-dark-1);
+}

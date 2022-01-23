@@ -5,6 +5,7 @@ import Classroom from './pages/Classroom/Classroom';
 import Subject from './pages/Subject/Subject';
 import Login from './pages/Authentication/Login';
 import Signup from './pages/Authentication/Signup';
+import Alert from './components/Alert/Alert';
 import './App.css';
 
 const App = () => {
@@ -22,6 +23,12 @@ const App = () => {
           <Route path='/notices' exact element={<div />} />
         </Route>
       </Routes>
+
+      <Alert
+        icon='fas fa-thumbs-up'
+        heading='Success'
+        info='Signed up succesfully!'
+      />
     </div>
   );
 };
