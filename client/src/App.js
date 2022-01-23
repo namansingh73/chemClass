@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import Profile from './pages/Profile/Profile';
-import Main from './layout/Main/Main';
-import Classroom from './pages/Classroom/Classroom';
-import Subject from './pages/Subject/Subject';
 import Login from './pages/Authentication/Login';
 import Signup from './pages/Authentication/Signup';
+import RequireAuth from './components/RequireAuth/RequireAuth';
+import Main from './layout/Main/Main';
+import Profile from './pages/Profile/Profile';
+import Classroom from './pages/Classroom/Classroom';
+import Subject from './pages/Subject/Subject';
 import Alert from './components/Alert/Alert';
 import './App.css';
 
@@ -14,7 +15,14 @@ const App = () => {
       <Routes>
         <Route path='/login' exact element={<Login />} />
         <Route path='/signup' exact element={<Signup />} />
-        <Route path='/' element={<Main />}>
+        <Route
+          path='/'
+          element={
+            <RequireAuth>
+              <Main />
+            </RequireAuth>
+          }
+        >
           <Route path='/' exact element={<div />} />
           <Route path='/me' exact element={<Profile />} />
           <Route path='/classrooms' exact element={<Classroom />} />

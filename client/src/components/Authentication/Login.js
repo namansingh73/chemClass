@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import alertActions from '../../store/alert/alert-actions';
+import authActions from '../../store/auth/auth-actions';
 import Input from '../../utils/Input/Input';
 import Button from '../../utils/Button/Button';
 import styles from './LoginSignup.module.css';
@@ -14,6 +15,10 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(authActions.resetAuth());
+  }, [dispatch]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
