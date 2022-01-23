@@ -43,7 +43,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
 
-  const url = `${req.protocol}://${req.get('host')}/me`;
+  // const url = `${req.protocol}://${req.get('host')}/me`;
   // console.log(url);
   // await new Email(newUser, url).sendWelcome();
 
@@ -69,7 +69,7 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
-  res.cookie('jwt', 'loggedout', {
+  res.cookie('jwt', 'chalnikalyahanse', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
