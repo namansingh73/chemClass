@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -23,5 +24,9 @@ app.use('/api/v1/users', userRouter);
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
+
+// app.get('*', (req, res) =>
+//   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+// );
 
 module.exports = app;

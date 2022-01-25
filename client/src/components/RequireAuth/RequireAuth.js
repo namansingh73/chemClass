@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import authActions from '../../store/auth/auth-actions';
 
-const RequireAuth = ({ children, redirectTo = 'login' }) => {
-  const { user, loadingUser, cannotLoad } = useSelector(({ auth }) => auth);
+const RequireAuth = ({ children }) => {
+  const { user, loadUserPending, cannotLoad } = useSelector(({ auth }) => auth);
 
   const dispatch = useDispatch();
 
@@ -12,11 +12,11 @@ const RequireAuth = ({ children, redirectTo = 'login' }) => {
     return <Navigate to='/login' />;
   }
 
-  if (!user && !loadingUser) {
+  if (!user) {
     dispatch(authActions.loadUser());
   }
 
-  if (loadingUser) {
+  if (loadUserPending) {
     return <div>Loading...</div>;
   }
 

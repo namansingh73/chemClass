@@ -4,8 +4,6 @@ import { authActions } from './auth-slice';
 const loadUser = () => {
   return async (dispatch) => {
     try {
-      dispatch(authActions.setLoading());
-
       const res = await axios.get('/api/v1/users/me');
       const user = res.data.data;
 

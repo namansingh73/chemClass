@@ -69,8 +69,23 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     );
   }
 
+  if (req.body.email && req.body.email !== req.user.email) {
+    const user = await User.findById(req.user.id).select('+password');
+
+    if (
+      !req.body.passwordForEmailUpdation ||
+      !(await user.correctPassword(
+        req.body.passwordForEmailUpdation,
+        user.password
+      ))
+    ) {
+      return next(new AppError('Incorrect Password', 400));
+    }
+  }
+
   // 2) Filtered out unwanted fields names that are not allowed to be updated
   const filteredBody = filterObj(req.body, 'name', 'email');
+
   if (req.file) filteredBody.photo = req.file.filename;
 
   // 3) Update user document
