@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ProfilePhoto.module.css';
-import avatar from './avatar.png';
 
-const ProfilePhoto = () => {
-  const [imgSrc, setImgSrc] = useState(avatar);
-
+const ProfilePhoto = (props) => {
   const changeHandler = (event) => {
-    console.log('log');
     if (event.target.files && event.target.files[0]) {
-      setImgSrc(URL.createObjectURL(event.target.files[0]));
+      props.onChange(event.target.files[0]);
     }
   };
 
   return (
     <div className={styles.container}>
-      <img src={imgSrc} className={styles.avatar} alt='Profile' />
+      <img src={props.imgSrc} className={styles.avatar} alt='Profile' />
       <input
         className={styles.input}
         type='file'

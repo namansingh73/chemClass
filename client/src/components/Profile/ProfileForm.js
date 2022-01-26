@@ -5,6 +5,7 @@ import authActions from '../../store/auth/auth-actions';
 import alertActions from '../../store/alert/alert-actions';
 import Input from '../../utils/Input/Input';
 import ProfilePhoto from './ProfilePhoto';
+import avatar from './avatar.png';
 import Button from '../../utils/Button/Button';
 import styles from './ProfileForm.module.css';
 
@@ -15,6 +16,8 @@ const ProfileForm = () => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [passwordForEmailUpdation, setPasswordForEmailUpdation] = useState('');
+  const [imgSrc, setImgSrc] = useState(user?.photo?.url || avatar);
+  const [newImg, setNewImg] = useState('');
   const [loading, setLoading] = useState(false);
 
   const emailIsChanged = email !== user.email;
@@ -25,7 +28,15 @@ const ProfileForm = () => {
     setLoading(true);
 
     try {
-      const data = { name, email, passwordForEmailUpdation };
+      const data = new FormData();
+
+      data.append('name', name);
+      data.append('email', email);
+      data.append('passwordForEmailUpdation', passwordForEmailUpdation);
+
+      if (newImg !== '') {
+        data.append('photo', newImg);
+      }
 
       const res = await axios.patch('/api/v1/users/updateMe', data);
       const user = res.data.data.user;
@@ -95,7 +106,13 @@ const ProfileForm = () => {
           required
         />
       )}
-      <ProfilePhoto />
+      <ProfilePhoto
+        imgSrc={imgSrc}
+        onChange={(file) => {
+          setImgSrc(URL.createObjectURL(file));
+          setNewImg(file);
+        }}
+      />
 
       <div className={styles.buttonContainer}>
         <Button

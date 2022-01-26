@@ -13,7 +13,11 @@ const SidebarProfile = () => {
   return (
     <Link to='/me' className={styles.textLink}>
       <Card className={styles.sidebarProfile}>
-        <img src={avatar} alt={user.name} className={styles.avatar} />
+        <img
+          src={user?.photo?.url || avatar}
+          alt={user.name}
+          className={styles.avatar}
+        />
         <p className={styles.sidebarName}>
           {firstName}
           <br /> {lastName}
