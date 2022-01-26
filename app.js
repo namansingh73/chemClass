@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./routes/userRoutes');
+const errorController = require('./controllers/errorController');
 
 // Start express app
 const app = express();
@@ -24,6 +25,8 @@ app.use('/api/v1/users', userRouter);
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
+
+app.use(errorController);
 
 // app.get('*', (req, res) =>
 //   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))

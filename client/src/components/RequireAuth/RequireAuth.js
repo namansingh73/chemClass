@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import authActions from '../../store/auth/auth-actions';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const RequireAuth = ({ children }) => {
   const { user, loadUserPending, cannotLoad } = useSelector(({ auth }) => auth);
@@ -17,7 +18,7 @@ const RequireAuth = ({ children }) => {
   }
 
   if (loadUserPending) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return children;

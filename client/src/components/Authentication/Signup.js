@@ -13,6 +13,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [tncAccepted, setTncAccepted] = useState('');
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -30,6 +31,16 @@ const Signup = () => {
         alertActions.alert({
           alertType: 'Error',
           info: "Passwords doesn't match!",
+        })
+      );
+      return;
+    }
+
+    if (!tncAccepted) {
+      dispatch(
+        alertActions.alert({
+          alertType: 'Error',
+          info: 'Please accept Terms & Conditions',
         })
       );
       return;
@@ -53,12 +64,21 @@ const Signup = () => {
     } catch (err) {
       setLoading(false);
 
-      dispatch(
-        alertActions.alert({
-          alertType: 'Error',
-          info: 'Something went wrong!',
-        })
-      );
+      if (err.response) {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: err.response.data.message,
+          })
+        );
+      } else {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: 'Something went wrong!',
+          })
+        );
+      }
     }
   };
 
@@ -113,8 +133,10 @@ const Signup = () => {
           type='checkbox'
           id='tnc'
           name='tnc'
-          required
           className={styles.checkboxInput}
+          checked={tncAccepted}
+          onChange={(e) => setTncAccepted(e.target.checked)}
+          onClick={(e) => setTncAccepted(e.target.checked)}
         />
         <span className={styles.checkboxActual}>&#10003;</span>I agree to
         the&nbsp;

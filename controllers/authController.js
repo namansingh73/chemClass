@@ -190,7 +190,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      message: 'Token sent to email!',
+      message: 'Reset url sent to email!',
     });
   } catch (err) {
     user.passwordResetToken = undefined;
@@ -218,7 +218,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   // 2) If token has not expired, and there is user, set the new password
   if (!user) {
-    return next(new AppError('Token is invalid or has expired', 400));
+    return next(new AppError('Reset url is invalid or has expired', 400));
   }
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;

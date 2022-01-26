@@ -20,6 +20,16 @@ const ResetPassword = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
 
+    if (password !== passwordConfirm) {
+      dispatch(
+        alertActions.alert({
+          alertType: 'Error',
+          info: "Passwords doesn't match!",
+        })
+      );
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -37,12 +47,21 @@ const ResetPassword = () => {
     } catch (err) {
       setLoading(false);
 
-      dispatch(
-        alertActions.alert({
-          alertType: 'Error',
-          info: 'Something went wrong!',
-        })
-      );
+      if (err.response) {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: err.response.data.message,
+          })
+        );
+      } else {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: 'Something went wrong!',
+          })
+        );
+      }
     }
   };
 

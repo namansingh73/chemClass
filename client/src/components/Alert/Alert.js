@@ -42,7 +42,11 @@ const Alert = (props) => {
 
       <div className={styles.content}>
         <div className={styles.heading}>{alertType}</div>
-        <p className={styles.info}>{info}</p>
+        {info.split('\n').map((el) => (
+          <p key={el} className={styles.info}>
+            {el}
+          </p>
+        ))}
       </div>
 
       <button className={styles.closeBtn} onClick={clearAlertHandler}>

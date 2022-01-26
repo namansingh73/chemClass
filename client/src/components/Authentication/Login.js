@@ -51,12 +51,21 @@ const Login = () => {
     } catch (err) {
       setLoading(false);
 
-      dispatch(
-        alertActions.alert({
-          alertType: 'Error',
-          info: 'Something went wrong!',
-        })
-      );
+      if (err.response) {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: err.response.data.message,
+          })
+        );
+      } else {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: 'Something went wrong!',
+          })
+        );
+      }
     }
   };
 

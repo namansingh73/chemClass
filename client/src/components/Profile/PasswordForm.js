@@ -45,12 +45,21 @@ const PasswordForm = () => {
       setPassword('');
       setPasswordConfirm('');
     } catch (err) {
-      dispatch(
-        alertActions.alert({
-          alertType: 'Error',
-          info: 'Something went wrong!',
-        })
-      );
+      if (err.response) {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: err.response.data.message,
+          })
+        );
+      } else {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: 'Something went wrong!',
+          })
+        );
+      }
     }
 
     setLoading(false);
