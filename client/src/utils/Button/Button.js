@@ -41,7 +41,7 @@ const Button = ({
   }
 
   return (
-    <button className={classNameAct} {...otherProps}>
+    <button className={classNameAct} style={style} {...otherProps}>
       {loading && (
         <Fragment>
           <i className='fas fa-circle-notch fa-spin'></i> Loading

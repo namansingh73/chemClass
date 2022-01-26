@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,12 +6,14 @@ import alertActions from '../../store/alert/alert-actions';
 import authActions from '../../store/auth/auth-actions';
 import Input from '../../utils/Input/Input';
 import Button from '../../utils/Button/Button';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import styles from './LoginSignup.module.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [displayForgotPassword, setDisplayForgotPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,6 +21,14 @@ const Login = () => {
   useEffect(() => {
     dispatch(authActions.resetAuth());
   }, [dispatch]);
+
+  const forgotPasswordClickHandler = () => {
+    setDisplayForgotPassword(true);
+  };
+
+  const forgotPasswordCloseHandler = () => {
+    setDisplayForgotPassword(false);
+  };
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -51,48 +61,53 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <Input
-        label='Email*'
-        id='email'
-        type='email'
-        placeholder='mail@website.com'
-        required
-        onChange={(event) => setEmail(event.target.value)}
-        value={email}
-      />
-      <Input
-        label='Password*'
-        id='password'
-        type='password'
-        placeholder='Min 8 characters'
-        minLength='8'
-        required
-        onChange={(event) => setPassword(event.target.value)}
-        value={password}
-      />
+    <Fragment>
+      {displayForgotPassword && (
+        <ForgotPassword onClose={forgotPasswordCloseHandler} />
+      )}
 
-      <a
-        href='https://youtu.be/dQw4w9WgXcQ'
-        rel='noreferrer'
-        target='_blank'
-        className={styles.termsConditionsLink}
-      >
-        Forgot password?
-      </a>
+      <form onSubmit={submitHandler}>
+        <Input
+          label='Email*'
+          id='email'
+          type='email'
+          placeholder='mail@website.com'
+          required
+          onChange={(event) => setEmail(event.target.value)}
+          value={email}
+        />
+        <Input
+          label='Password*'
+          id='password'
+          type='password'
+          placeholder='Min 8 characters'
+          minLength='8'
+          required
+          onChange={(event) => setPassword(event.target.value)}
+          value={password}
+        />
 
-      <div className={styles.classLinkBottom}>
-        <Button
-          className={styles.classLinkBtn}
-          rounded
-          fullWidth
-          disabled={loading}
-          loading={loading}
+        <button
+          type='button'
+          className={styles.forgotPassword}
+          onClick={forgotPasswordClickHandler}
         >
-          Login
-        </Button>
-      </div>
-    </form>
+          Forgot password?
+        </button>
+
+        <div className={styles.classLinkBottom}>
+          <Button
+            className={styles.classLinkBtn}
+            rounded
+            fullWidth
+            disabled={loading}
+            loading={loading}
+          >
+            Login
+          </Button>
+        </div>
+      </form>
+    </Fragment>
   );
 };
 

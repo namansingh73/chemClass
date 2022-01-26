@@ -6,6 +6,7 @@ import Main from './layout/Main/Main';
 import Profile from './pages/Profile/Profile';
 import Classroom from './pages/Classroom/Classroom';
 import Subject from './pages/Subject/Subject';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Alert from './components/Alert/Alert';
 import './App.css';
 
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path='/login' exact element={<Login />} />
         <Route path='/signup' exact element={<Signup />} />
+        <Route path='/resetPassword/:token' exact element={<ResetPassword />} />
         <Route
           path='/'
           element={

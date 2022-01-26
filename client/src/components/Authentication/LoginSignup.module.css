@@ -3,6 +3,16 @@
   color: var(--color-yellowOrange);
 }
 
+.forgotPassword {
+  text-decoration: none;
+  color: var(--color-yellowOrange);
+  background: none;
+  border: none;
+  outline: none;
+  font-size: inherit;
+  cursor: pointer;
+}
+
 .checkboxLabel {
   font-size: 1.4rem;
   font-weight: 500;

@@ -5,9 +5,11 @@ import styles from './Input.module.css';
 const Input = ({ id, label, type, placeholder, ...otherProps }) => {
   return (
     <div className={styles.inputContainer}>
-      <label htmlFor={id} className={styles.label}>
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={id} className={styles.label}>
+          {label}
+        </label>
+      )}
       <input
         type={type}
         id={id}
