@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./routes/userRoutes');
+const classroomRouter = require('./routes/classroomRoutes');
 const errorController = require('./controllers/errorController');
 
 // Start express app
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/classrooms', classroomRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World');
