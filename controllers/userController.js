@@ -6,7 +6,7 @@ const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
 const {
   deleteSingleFileCloudinary,
-  uploadSingleFileCloudinary,
+  uploadProfilePhotoCloudinary,
 } = require('../cloudinary');
 
 const multerStorage = multer.memoryStorage();
@@ -30,7 +30,7 @@ exports.uploadUserPhoto = upload.single('photo');
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   if (!req.file) return next();
 
-  req.photo = await uploadSingleFileCloudinary(
+  req.photo = await uploadProfilePhotoCloudinary(
     req.file.buffer,
     'chemClass/profilePhotos'
   );
