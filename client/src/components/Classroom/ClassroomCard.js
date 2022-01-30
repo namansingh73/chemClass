@@ -1,9 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './ClassroomCard.module.css';
 
 const ClassroomCard = (props) => {
   return (
-    <div className={styles.classroomCard}>
+    <Link
+      to={`/classrooms/${props.id}/${props.index}`}
+      className={styles.classroomCard}
+    >
       <div className={styles.imageContainer}>
         <img
           src={props.image}
@@ -11,7 +15,8 @@ const ClassroomCard = (props) => {
           className={styles.image}
         />
         <div className={styles.studentsCount}>
-          <i className={`fas fa-user-graduate ${styles.iconStudent}`}></i> 30
+          <i className={`fas fa-user-graduate ${styles.iconStudent}`}></i>{' '}
+          {props.studentsCount}
         </div>
       </div>
 
@@ -21,7 +26,16 @@ const ClassroomCard = (props) => {
           <i className={`fas fa-user ${styles.instructorIcon}`}></i> &nbsp;
           {props.instructor}
         </p>
-        {props.assignmentCount !== 0 && (
+        {props.assignmentCount === null && (
+          <p
+            className={`${styles.assignment} ${styles.assignment__instructor}`}
+          >
+            <i className='fas fa-info-circle'></i> {props.studentsCount || 'No'}{' '}
+            student
+            {props.studentsCount > 1 ? 's' : ''} enrolled!
+          </p>
+        )}
+        {props.assignmentCount !== null && props.assignmentCount !== 0 && (
           <p className={`${styles.assignment} ${styles.assignment__due}`}>
             <i className='fas fa-exclamation-circle'></i>{' '}
             {props.assignmentCount} assigments due
@@ -33,7 +47,7 @@ const ClassroomCard = (props) => {
           </p>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

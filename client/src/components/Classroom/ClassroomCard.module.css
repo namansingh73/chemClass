@@ -3,6 +3,8 @@
   border-radius: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition: 0.2s;
+  color: inherit;
+  text-decoration: inherit;
 }
 
 .classroomCard:hover {
@@ -52,6 +54,10 @@
 .assignment {
   margin-top: 0.6rem;
   font-size: 1.4rem;
+}
+
+.assignment__instructor {
+  color: var(--color-blue);
 }
 
 .assignment__due {

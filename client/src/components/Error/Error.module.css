@@ -1,0 +1,30 @@
+.error {
+  background: var(--color-white);
+  border-radius: 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  width: 85%;
+  padding: 4rem 0;
+  margin: auto;
+}
+
+.heading {
+  font-weight: 500;
+}
+
+.errorGif {
+  display: block;
+  width: 50rem;
+}
+
+.text {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.btnIcon {
+  font-size: 1.3rem;
+}

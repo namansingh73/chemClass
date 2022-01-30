@@ -395,7 +395,8 @@ exports.getClassrooms = catchAsync(async (req, res, next) => {
     },
   ]);
 
-  res.json({
-    classrooms,
+  res.status(200).json({
+    status: 'success',
+    data: classrooms,
   });
 });
