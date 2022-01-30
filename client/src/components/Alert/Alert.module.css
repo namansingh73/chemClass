@@ -20,6 +20,8 @@
 
   font-size: 1.4rem;
   letter-spacing: 0.2px;
+
+  z-index: 2000;
 }
 
 .heading {

@@ -1,0 +1,146 @@
+.tooltip {
+  position: relative;
+}
+
+.tooltipElement {
+  color: #fff;
+  background-color: var(--color-grey-dark-1);
+  padding: 0.5rem 1rem;
+  font-size: 1.4rem;
+  border-radius: 0.6rem;
+  line-height: 1.6;
+  font-family: var(--font-family);
+  letter-spacing: 0.5px;
+
+  opacity: 0;
+
+  display: grid;
+  visibility: hidden;
+  grid-template-columns: max-content;
+
+  transition: all 0.3s;
+
+  position: absolute;
+  top: calc(100% + 1rem);
+}
+
+.tooltip:hover .tooltipElement {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltipElement::after {
+  content: '';
+  border-width: 0.5rem;
+  border-style: solid;
+  position: absolute;
+  border-color: transparent transparent var(--color-grey-dark-1) transparent;
+
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltipElement__top {
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+
+  bottom: calc(100% + 1rem);
+}
+
+.tooltipElement__top::after {
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-color: var(--color-grey-dark-1) transparent transparent transparent;
+}
+
+.tooltipElement__left {
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+
+  top: 50%;
+  right: calc(100% + 1rem);
+  transform: translateY(-50%);
+}
+
+.tooltipElement__left::after {
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color: transparent transparent transparent var(--color-grey-dark-1);
+}
+
+.tooltipElement__right {
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+
+  top: 50%;
+  left: calc(100% + 1rem);
+  transform: translateY(-50%);
+}
+
+.tooltipElement__right::after {
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color: transparent var(--color-grey-dark-1) transparent transparent;
+}
+
+/* &--top {
+    @include resetPositions;
+    @include position-absolute-element(center, top);
+    bottom: calc(100% + 1rem);
+
+    &::after {
+      @include resetPositions;
+      @include position-absolute-element(center, bottom);
+      border-color: var(--color-grey-dark-1) transparent transparent transparent;
+    }
+  }
+
+  &--right {
+    @include resetPositions;
+    @include position-absolute-element(right, middle);
+    left: calc(100% + 1rem);
+
+    &::after {
+      @include resetPositions;
+      @include position-absolute-element(left, middle);
+      border-color: transparent var(--color-grey-dark-1) transparent transparent;
+    }
+  }
+
+  &--left {
+    @include resetPositions;
+    @include position-absolute-element(left, middle);
+    right: calc(100% + 1rem);
+
+    &::after {
+      @include resetPositions;
+      @include position-absolute-element(right, middle);
+      border-color: transparent transparent transparent var(--color-grey-dark-1);
+    }
+  } */

@@ -5,6 +5,7 @@
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
 }
 
 .popupCard {
@@ -18,6 +19,7 @@
   border-radius: 1rem;
   padding: 0.5rem 2.5rem 2rem;
   border-top: 1rem solid var(--color-blue-darker);
+  z-index: 1001;
 }
 
 .closeBtnContainer {
