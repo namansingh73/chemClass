@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import ClassroomContainer from '../../components/Classroom/ClassroomContainer';
 import AddClass from '../../components/Classroom/AddClass';
 import ClassroomCard from '../../components/Classroom/ClassroomCard';
@@ -9,6 +9,9 @@ import image4 from '../../images/classroom-4.jpg';
 import image5 from '../../images/classroom-5.jpg';
 
 const Classroom = () => {
+  // const [loading, setLoading] = useState('');
+  // const [classrooms, setClassrooms] = useState([]);
+
   return (
     <Fragment>
       <ClassroomContainer>

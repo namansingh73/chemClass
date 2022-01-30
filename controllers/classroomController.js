@@ -296,3 +296,106 @@ exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
     post,
   });
 });
+
+exports.getClassrooms = catchAsync(async (req, res, next) => {
+  const classrooms = await Classroom.aggregate([
+    {
+      $match: {
+        $or: [{ instructor: req.user._id }, { students: req.user._id }],
+      },
+    },
+    {
+      $addFields: {
+        studentCount: {
+          $size: '$students',
+        },
+      },
+    },
+    {
+      $project: {
+        students: 0,
+      },
+    },
+    {
+      $lookup: {
+        from: 'posts',
+        let: { classroomId: '$_id' },
+        pipeline: [
+          {
+            $match: {
+              $and: [
+                {
+                  $expr: {
+                    $eq: ['$$classroomId', '$classroom'],
+                  },
+                },
+                {
+                  postType: 'assignment',
+                  'assignmentDetails.submissions.student': {
+                    $ne: req.user._id,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $project: {
+              _id: 1,
+            },
+          },
+        ],
+        as: 'assignments',
+      },
+    },
+    {
+      $addFields: {
+        unsubmittedAssignmentCount: {
+          $cond: {
+            if: {
+              $ne: ['$instructor', req.user._id],
+            },
+            then: {
+              $size: '$assignments',
+            },
+            else: null,
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        assignments: 0,
+      },
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'instructor',
+        foreignField: '_id',
+        as: 'instructorObjs',
+      },
+    },
+    {
+      $addFields: {
+        instructorObj: {
+          $first: '$instructorObjs',
+        },
+      },
+    },
+    {
+      $addFields: {
+        instructorName: '$instructorObj.name',
+      },
+    },
+    {
+      $project: {
+        instructorObjs: 0,
+        instructorObj: 0,
+      },
+    },
+  ]);
+
+  res.json({
+    classrooms,
+  });
+});

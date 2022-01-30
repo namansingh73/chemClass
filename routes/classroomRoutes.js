@@ -7,11 +7,13 @@ const router = express.Router();
 // Protect all routes after this middleware
 router.use(authController.protect);
 
-router.post(
-  '/',
-  classroomController.createClassroomAddInstructor,
-  classroomController.createClassroom
-);
+router
+  .route('/')
+  .get(classroomController.getClassrooms)
+  .post(
+    classroomController.createClassroomAddInstructor,
+    classroomController.createClassroom
+  );
 
 router.post('/:uuid', classroomController.joinClassroom);
 
