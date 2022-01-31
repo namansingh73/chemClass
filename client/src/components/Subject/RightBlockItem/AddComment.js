@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './AddComment.module.css';
 import commentImage from './addComment.png';
 
 const AddComment = () => {
+  const { user } = useSelector(({ auth }) => auth);
   const [commentIsFocused, setCommentisFocused] = useState(false);
 
   const commentChangeHandler = (e) => {
@@ -12,7 +14,7 @@ const AddComment = () => {
   return (
     <div className={styles.addComment}>
       <img
-        src={commentImage}
+        src={user?.photo?.url || commentImage}
         className={styles.addCommentIcon}
         alt='Profile Icon'
       />

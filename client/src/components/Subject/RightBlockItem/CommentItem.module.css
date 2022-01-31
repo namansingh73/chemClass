@@ -6,6 +6,10 @@
   margin-bottom: 1.5rem;
 }
 
+.commentInfo {
+  flex: 1;
+}
+
 .commentAuthorIcon {
   width: 2.8rem;
   height: 2.8rem;

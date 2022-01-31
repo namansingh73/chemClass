@@ -15,6 +15,8 @@ router
     classroomController.createClassroom
   );
 
+router.get('/:id', classroomController.getSingleClassroom);
+
 router.post('/join/:uuid', classroomController.joinClassroom);
 
 router.post('/posts/:postId/comments', classroomController.postComment);

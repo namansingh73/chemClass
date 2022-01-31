@@ -7,10 +7,10 @@ const SubjectMain = (props) => {
   return (
     <div className={styles.subjectMain}>
       <div className={styles.left}>
-        <LeftBlock />
+        <LeftBlock subject={props.subject} />
       </div>
       <div className={styles.right}>
-        <RightBlock />
+        <RightBlock subject={props.subject} />
       </div>
     </div>
   );

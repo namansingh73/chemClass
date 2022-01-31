@@ -73,7 +73,7 @@ exports.joinClassroom = catchAsync(async (req, res, next) => {
 });
 
 exports.postComment = catchAsync(async (req, res, next) => {
-  const post = await Post.findById(req.params.postId).populate('classroom');
+  let post = await Post.findById(req.params.postId).populate('classroom');
 
   if (!post) {
     throw new AppError('Post not found', 400);
@@ -96,6 +96,20 @@ exports.postComment = catchAsync(async (req, res, next) => {
     text: req.body.text,
   });
   await post.save();
+
+  post.populate({
+    path: 'comments.user',
+    select: ['name', 'photo'],
+  });
+
+  post = post.toObject();
+
+  if (post.postType === 'assignment') {
+    post.assignmentDetails.submission = post.assignmentDetails.submissions.find(
+      (submission) => submission.student.toString() === req.user.id
+    );
+    post.assignmentDetails.submissions = undefined;
+  }
 
   res.status(201).json({
     status: 'success',
@@ -305,6 +319,11 @@ exports.getClassrooms = catchAsync(async (req, res, next) => {
       },
     },
     {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
       $addFields: {
         studentCount: {
           $size: '$students',
@@ -398,5 +417,50 @@ exports.getClassrooms = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: classrooms,
+  });
+});
+
+exports.getSingleClassroom = catchAsync(async (req, res, next) => {
+  let classroom = await Classroom.findById(req.params.id);
+
+  if (
+    !classroom ||
+    (classroom.instructor.toString() !== req.user.id &&
+      !classroom.students.find((student) => student.toString() === req.user.id))
+  ) {
+    throw new AppError("Classroom doesn't exists", 404);
+  }
+
+  await classroom.populate([
+    {
+      path: 'posts',
+      populate: {
+        path: 'comments.user',
+        select: ['name', 'photo'],
+      },
+    },
+    {
+      path: 'instructor',
+      select: ['name', 'photo'],
+    },
+  ]);
+
+  classroom = classroom.toObject();
+
+  classroom.posts.forEach((post) => {
+    if (post.postType !== 'assignment') {
+      return;
+    }
+
+    post.assignmentDetails.submission = post.assignmentDetails.submissions.find(
+      (submission) => submission.student.toString() === req.user.id
+    );
+
+    post.assignmentDetails.submissions = undefined;
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: classroom,
   });
 });

@@ -35,7 +35,7 @@ const Notifications = () => {
   return (
     <div>
       {displayCreateClassPopup && (
-        <CreateClassroom onClose={() => setDisplayCreateClassPopup()} />
+        <CreateClassroom onClose={() => setDisplayCreateClassPopup(false)} />
       )}
       <Tooltip
         DomElement={'button'}

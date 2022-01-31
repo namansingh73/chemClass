@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import alertActions from '../../store/alert/alert-actions';
 import PopupCard from '../../layout/PopupCard/PopupCard';
@@ -9,6 +10,7 @@ import styles from './CreateClasroom.module.css';
 
 const CreateClassroom = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [classroomName, setClassroomName] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +21,7 @@ const CreateClassroom = (props) => {
 
     try {
       const data = { name: classroomName };
-      await axios.post('/api/v1/classrooms/', data);
+      const res = await axios.post('/api/v1/classrooms/', data);
       dispatch(
         alertActions.alert({
           alertType: 'Success',
@@ -27,6 +29,7 @@ const CreateClassroom = (props) => {
         })
       );
       props.onClose();
+      navigate(`/classrooms/${res.data.data._id}/0`);
     } catch (err) {
       if (err.response) {
         dispatch(
