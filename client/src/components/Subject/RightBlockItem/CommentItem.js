@@ -1,13 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import alertActions from '../../../store/alert/alert-actions';
+import subjectActions from '../../../store/subject/subject-actions';
 import commentAuthor from './commentAuthor.png';
 import prettyDate from '../../../utils/HelperFunctions/prettyDate';
 import styles from './CommentItem.module.css';
 
 const CommentItem = (props) => {
+  const auth = useSelector(({ auth }) => auth);
+  const subject = useSelector(({ subject }) => subject);
+
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const deleteHandler = async () => {
+    if (!window.confirm('Are you sure, you want to delete the comment?')) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await axios.delete(
+        `/api/v1/classrooms/posts/${props.post._id}/comments/${props.comment._id}`
+      );
+      dispatch(
+        subjectActions.deleteComment({
+          postId: props.post._id,
+          commentId: props.comment._id,
+        })
+      );
+    } catch {
+      dispatch(
+        alertActions.alert({
+          alertType: 'Error',
+          info: 'Something went wrong!',
+        })
+      );
+    }
+    setLoading(false);
+  };
+
   return (
     <div className={styles.commentItem}>
       <img
-        src={commentAuthor}
+        src={props.comment.user.photo?.url || commentAuthor}
         className={styles.commentAuthorIcon}
         alt='Avatar icon'
       />
@@ -17,9 +54,16 @@ const CommentItem = (props) => {
           <span className={styles.time}>
             {prettyDate(props.comment.createdAt)}
           </span>
-          <button className={styles.deleteCommentBtn}>
-            <i className='far fa-trash-alt'></i>
-          </button>
+          {(auth.user._id === props.comment.user._id ||
+            auth.user._id === subject.instructor._id) && (
+            <button
+              className={styles.deleteCommentBtn}
+              disabled={loading}
+              onClick={deleteHandler}
+            >
+              <i className='far fa-trash-alt'></i>
+            </button>
+          )}
         </div>
 
         <div className={styles.commentBody}>{props.comment.text}</div>

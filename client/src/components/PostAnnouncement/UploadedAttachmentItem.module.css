@@ -1,0 +1,52 @@
+.uploadBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  margin: 1rem;
+  background: var(--color-white);
+  border-radius: 1rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  padding: 1rem;
+  transition: 0.2s;
+  position: relative;
+}
+
+.uploadBox:hover {
+  transform: translateY(-1px);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.icon {
+  width: 6rem;
+}
+
+.filename {
+  width: 8rem;
+  font-size: 1.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.closeBtn {
+  background: none;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+
+  line-height: 1;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.6rem;
+  transition: 0.2s;
+}
+
+.closeBtn:hover {
+  font-size: 1.8rem;
+  font-weight: 600;
+}

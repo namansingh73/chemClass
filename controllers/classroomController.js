@@ -97,7 +97,7 @@ exports.postComment = catchAsync(async (req, res, next) => {
   });
   await post.save();
 
-  post.populate({
+  await post.populate({
     path: 'comments.user',
     select: ['name', 'photo'],
   });
@@ -434,6 +434,11 @@ exports.getSingleClassroom = catchAsync(async (req, res, next) => {
   await classroom.populate([
     {
       path: 'posts',
+      options: {
+        sort: {
+          createdAt: -1,
+        },
+      },
       populate: {
         path: 'comments.user',
         select: ['name', 'photo'],

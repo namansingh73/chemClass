@@ -24,10 +24,15 @@ const Comments = (props) => {
           .slice()
           .reverse()
           .map((comment) => (
-            <CommentItem comment={comment} key={comment._id} />
+            <CommentItem
+              post={props.post}
+              comment={comment}
+              key={comment._id}
+            />
           ))}
       {!showAll && (
         <CommentItem
+          post={props.post}
           comment={props.post.comments[props.post.comments.length - 1]}
         />
       )}

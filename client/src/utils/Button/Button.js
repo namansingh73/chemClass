@@ -10,6 +10,7 @@ const Button = ({
   className,
   loading,
   children,
+  lighter,
   ...otherProps
 }) => {
   const style = {};
@@ -38,6 +39,9 @@ const Button = ({
   }
   if (className) {
     classNameAct += ' ' + className;
+  }
+  if (lighter) {
+    style['--current-color'] = `var(--color-${color}-light)`;
   }
 
   return (

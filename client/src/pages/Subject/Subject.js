@@ -1,6 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import subjectActions from '../../store/subject/subject-actions';
 import SubjectHeader from '../../components/Subject/SubjectHeader';
 import SubjectMain from '../../components/Subject/SubjectMain';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -14,9 +16,9 @@ import image5 from '../../images/classroom-5.jpg';
 const images = [image1, image2, image3, image4, image5];
 
 const Subject = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const [loading, setLoading] = useState(true);
-  const [classroom, setClassroom] = useState(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const Subject = () => {
     const fetchClassroom = async () => {
       try {
         const res = await axios.get(`/api/v1/classrooms/${params.id}`);
-        setClassroom(res.data.data);
+        dispatch(subjectActions.initSubject(res.data.data));
       } catch (err) {
         setError(true);
       }
@@ -35,7 +37,7 @@ const Subject = () => {
     };
 
     fetchClassroom();
-  }, [loading, params.id]);
+  }, [dispatch, loading, params.id]);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -54,12 +56,8 @@ const Subject = () => {
 
   return (
     <Fragment>
-      <SubjectHeader
-        subjectName={classroom.name}
-        instructor={classroom.instructor.name}
-        image={images[parseInt(params.imageCnt)]}
-      />
-      <SubjectMain subject={classroom} />
+      <SubjectHeader image={images[parseInt(params.imageCnt)]} />
+      <SubjectMain />
     </Fragment>
   );
 };

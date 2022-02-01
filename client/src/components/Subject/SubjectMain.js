@@ -3,14 +3,14 @@ import LeftBlock from './LeftBlock';
 import RightBlock from './RightBlock';
 import styles from './SubjectMain.module.css';
 
-const SubjectMain = (props) => {
+const SubjectMain = () => {
   return (
     <div className={styles.subjectMain}>
       <div className={styles.left}>
-        <LeftBlock subject={props.subject} />
+        <LeftBlock />
       </div>
       <div className={styles.right}>
-        <RightBlock subject={props.subject} />
+        <RightBlock />
       </div>
     </div>
   );

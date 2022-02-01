@@ -9,7 +9,7 @@ import AddComment from './AddComment';
 const RightBlockItem = (props) => {
   return (
     <SubjectCard noPadding>
-      <Header post={props.post} instructor={props.instructor} />
+      <Header post={props.post} />
       <MainContent post={props.post} />
       <Attachments post={props.post} />
       <Comments post={props.post} />
