@@ -5,6 +5,8 @@
   display: flex;
   cursor: pointer;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-decoration: inherit;
+  color: inherit;
 }
 
 .attachmentItem:hover .filename {

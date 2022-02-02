@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import alertActions from '../../../store/alert/alert-actions';
@@ -13,6 +13,7 @@ const AddComment = (props) => {
   const [commentIsFocused, setCommentisFocused] = useState(false);
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
+  const inputRef = useRef();
 
   const commentChangeHandler = (e) => {
     e.target.style.height = 0;
@@ -36,6 +37,8 @@ const AddComment = (props) => {
       const post = res.data.post;
       dispatch(subjectActions.updatePost(post));
       setComment('');
+      inputRef.current.style.height = 0;
+      inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
     } catch (err) {
       dispatch(
         alertActions.alert({
@@ -62,6 +65,7 @@ const AddComment = (props) => {
         }`}
       >
         <textarea
+          ref={inputRef}
           type='text'
           placeholder='Add class comment...'
           className={styles.addCommentInput}

@@ -1,10 +1,19 @@
-.emailForm {
+.form {
   text-align: center;
 }
 
 .heading {
   font-weight: 600;
   margin-bottom: 1rem;
+}
+
+.inputDate {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+.inputDate:focus {
+  border: 1px solid var(--color-blue);
 }
 
 .attachmentLabel {
@@ -45,6 +54,7 @@
   resize: none;
   width: 100%;
   margin: 1rem 0 2rem;
+  line-height: 2;
 }
 
 .textarea:focus {

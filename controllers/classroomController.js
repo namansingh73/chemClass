@@ -3,7 +3,6 @@ const Classroom = require('../models/classroomModel');
 const Post = require('../models/postModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const APIFeatures = require('../utils/apiFeatures');
 const factory = require('./handlerFactory');
 const {
   uploadMultipleFilesCloudinary,
@@ -171,7 +170,7 @@ exports.postaPost = catchAsync(async (req, res, next) => {
 
   if (req.query.postType === 'assignment') {
     assignmentDetails = {
-      due: req.body.assignmentDetails?.due,
+      due: req.body.due,
     };
   }
 

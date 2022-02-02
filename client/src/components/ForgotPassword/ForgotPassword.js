@@ -50,7 +50,7 @@ const ForgotPassword = (props) => {
 
   return (
     <PopupCard onClose={props.onClose}>
-      <form className={styles.emailForm} onSubmit={submitHandler}>
+      <form className={styles.form} onSubmit={submitHandler}>
         <h2 className={styles.heading}>Forgot Password?</h2>
         <p>
           No worries, just enter your registered email to get the reset password

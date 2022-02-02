@@ -2,13 +2,7 @@ import React from 'react';
 import styles from './Input.module.css';
 
 // props = {}
-const Input = ({ id, label, type, textarea, placeholder, ...otherProps }) => {
-  let DomElement = 'input';
-
-  if (textarea) {
-    DomElement = 'textarea';
-  }
-
+const Input = ({ id, label, type, placeholder, className, ...otherProps }) => {
   return (
     <div className={styles.inputContainer}>
       {label && (
@@ -16,11 +10,11 @@ const Input = ({ id, label, type, textarea, placeholder, ...otherProps }) => {
           {label}
         </label>
       )}
-      <DomElement
+      <input
         type={type}
         id={id}
         placeholder={placeholder}
-        className={`${styles.input}  ${styles.textarea}`}
+        className={`${styles.input}  ${className}`}
         {...otherProps}
       />
     </div>

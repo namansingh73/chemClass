@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   padding: 1.6rem;
 }
 
@@ -20,4 +20,20 @@
   font-size: 1.2rem;
   letter-spacing: 0.5px;
   color: var(--color-grey-dark-2);
+}
+
+.submission {
+  margin-left: auto;
+  text-align: right;
+}
+
+.submissionStatus {
+  font-size: 1.4rem;
+  margin: 0.5rem auto;
+  font-weight: 500;
+}
+
+.dueDate {
+  font-size: 1.2rem;
+  font-weight: 500;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './UploadedAttachmentItem.module.css';
+import styles from './UploadAttachmentItem.module.css';
 import pdfIcon from './pdf_icon.png';
 import imgIcon from './triangle_icon.png';
 
-const UploadedAttachmentItem = (props) => {
+const UploadAttachmentItem = (props) => {
   return (
     <div className={styles.uploadBox}>
       <img
@@ -24,4 +24,4 @@ const UploadedAttachmentItem = (props) => {
   );
 };
 
-export default UploadedAttachmentItem;
+export default UploadAttachmentItem;

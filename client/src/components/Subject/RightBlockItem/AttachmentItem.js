@@ -3,7 +3,11 @@ import styles from './AttachmentItem.module.css';
 
 const AttachmentItem = (props) => {
   return (
-    <div className={styles.attachmentItem}>
+    <a
+      className={styles.attachmentItem}
+      href={props.attachment.url}
+      target='_blank'
+    >
       <img
         src={props.attachment.url.replace(
           '/upload',
@@ -22,7 +26,7 @@ const AttachmentItem = (props) => {
           {props.attachment.originalName.endsWith('pdf') ? 'Pdf' : 'Image'}
         </span>
       </div>
-    </div>
+    </a>
   );
 };
 

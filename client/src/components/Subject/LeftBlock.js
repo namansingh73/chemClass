@@ -2,15 +2,14 @@ import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SubjectCard from './SubjectCard';
-import PostAnnouncement from '../PostAnnouncement/PostAnnouncement';
+import PostAPost from '../PostAPost/PostAPost';
 import Button from '../../utils/Button/Button';
 import styles from './LeftBlock.module.css';
 
 const LeftBlock = () => {
   const subject = useSelector(({ subject }) => subject);
   const auth = useSelector(({ auth }) => auth);
-  const [displayPostAnnouncement, setDisplayPostAnnouncement] = useState(false);
-
+  const [postType, setPostType] = useState('');
   const isInstructor = auth.user._id === subject.instructor._id;
 
   const assignmentCount = 0;
@@ -40,7 +39,7 @@ const LeftBlock = () => {
             fullWidth
             color='red'
             className={styles.createBtn1}
-            onClick={() => setDisplayPostAnnouncement(true)}
+            onClick={() => setPostType('announcement')}
           >
             <i className={`fas fa-bullhorn ${styles.createButtonIcon}`}></i>{' '}
             <span>Announcement</span>
@@ -48,7 +47,7 @@ const LeftBlock = () => {
           <Button
             fullWidth
             color='blue'
-            onClick={() => setDisplayPostAnnouncement(true)}
+            onClick={() => setPostType('assignment')}
           >
             <i
               className={`far fa-calendar-plus ${styles.createButtonIcon}`}
@@ -58,8 +57,8 @@ const LeftBlock = () => {
         </SubjectCard>
       )}
 
-      {displayPostAnnouncement && (
-        <PostAnnouncement onClose={() => setDisplayPostAnnouncement(false)} />
+      {postType && (
+        <PostAPost onClose={() => setPostType('')} postType={postType} />
       )}
 
       {!isInstructor && (
