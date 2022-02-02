@@ -174,7 +174,7 @@ exports.postaPost = catchAsync(async (req, res, next) => {
     };
   }
 
-  let attachments = undefined;
+  let attachments = [];
 
   if (req.files?.length) {
     const cloudinaryResponses = await uploadMultipleFilesCloudinary(
@@ -240,10 +240,10 @@ exports.uploadFileSubmission = upload.single('attachment');
 
 exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
   if (!req.file) {
-    throw new AppError('Abe ghoda hai kya, khali submit karega?', 400);
+    throw new AppError('Attachment cannot be empty!', 400);
   }
 
-  const post = await Post.findById(req.params.postId).populate('classroom');
+  let post = await Post.findById(req.params.postId).populate('classroom');
 
   if (!post || post.postType !== 'assignment') {
     throw new AppError('Assignment not found', 400);
@@ -268,8 +268,7 @@ exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
       'chemClass/assignmentSubmissions'
     );
   } catch (err) {
-    console.log(err);
-    throw new AppError('Baad me aa jayio, kar doonga', 400);
+    throw new AppError('Please try again later', 400);
   }
 
   const submissionIndex = post.assignmentDetails.submissions.findIndex(
@@ -302,6 +301,18 @@ exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
     await deleteSingleFileCloudinary(cloudinaryRes.public_id);
     throw err;
   }
+
+  await post.populate({
+    path: 'comments.user',
+    select: ['name', 'photo'],
+  });
+
+  post = post.toObject();
+
+  post.assignmentDetails.submission = post.assignmentDetails.submissions.find(
+    (submission) => submission.student.toString() === req.user.id
+  );
+  post.assignmentDetails.submissions = undefined;
 
   res.status(201).json({
     status: 'success',
@@ -466,5 +477,54 @@ exports.getSingleClassroom = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: classroom,
+  });
+});
+
+exports.updateClassroom = catchAsync(async (req, res, next) => {
+  const classroom = await Classroom.findById(req.params.id);
+
+  if (!classroom) {
+    throw new AppError('Classroom not found', 400);
+  }
+
+  if (classroom.instructor.toString() !== req.user.id) {
+    throw new AppError("You don't have permission to perform this action", 400);
+  }
+
+  if (req.body.name) {
+    classroom.name = req.body.name;
+  }
+
+  if (req.body.meetLink) {
+    classroom.meetLink = req.body.meetLink;
+  }
+
+  await classroom.save();
+
+  await classroom.populate([
+    {
+      path: 'posts',
+      options: {
+        sort: {
+          createdAt: -1,
+        },
+      },
+      populate: {
+        path: 'comments.user',
+        select: ['name', 'photo'],
+      },
+    },
+    {
+      path: 'instructor',
+      select: ['name', 'photo'],
+    },
+  ]);
+
+  classroom.submissions = undefined;
+
+  res.status(200).json({
+    status: 'success',
+    messsage: 'Class updated successfully!',
+    classroom,
   });
 });

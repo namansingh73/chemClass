@@ -22,6 +22,9 @@
 
   position: absolute;
   top: calc(100% + 1rem);
+
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .tooltip:hover .tooltipElement {
@@ -49,6 +52,9 @@
   bottom: auto;
 
   bottom: calc(100% + 1rem);
+
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .tooltipElement__top::after {

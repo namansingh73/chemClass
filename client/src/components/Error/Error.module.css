@@ -11,6 +11,10 @@
   margin: auto;
 }
 
+.error_fullWidth {
+  width: 100%;
+}
+
 .heading {
   font-weight: 500;
 }

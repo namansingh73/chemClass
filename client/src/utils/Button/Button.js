@@ -11,6 +11,7 @@ const Button = ({
   loading,
   children,
   lighter,
+  DomElement,
   ...otherProps
 }) => {
   const style = {};
@@ -44,15 +45,17 @@ const Button = ({
     style['--current-color'] = `var(--color-${color}-light)`;
   }
 
+  DomElement = DomElement || 'button';
+
   return (
-    <button className={classNameAct} style={style} {...otherProps}>
+    <DomElement className={classNameAct} style={style} {...otherProps}>
       {loading && (
         <Fragment>
           <i className='fas fa-circle-notch fa-spin'></i> Loading
         </Fragment>
       )}
       {!loading && children}
-    </button>
+    </DomElement>
   );
 };
 

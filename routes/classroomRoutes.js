@@ -15,7 +15,10 @@ router
     classroomController.createClassroom
   );
 
-router.get('/:id', classroomController.getSingleClassroom);
+router
+  .route('/:id')
+  .get(classroomController.getSingleClassroom)
+  .patch(classroomController.updateClassroom);
 
 router.post('/join/:uuid', classroomController.joinClassroom);
 

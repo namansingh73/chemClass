@@ -23,10 +23,10 @@ const isToday = (date) => {
   );
 };
 
-const prettyDate = (unPrettyDate) => {
+const prettyDate = (unPrettyDate, displayTimeForToday = true) => {
   const date = new Date(unPrettyDate);
 
-  if (isToday(date)) {
+  if (displayTimeForToday && isToday(date)) {
     const d = date.toLocaleTimeString();
     return d.substring(0, d.length - 6) + d.substring(d.length - 3);
   }

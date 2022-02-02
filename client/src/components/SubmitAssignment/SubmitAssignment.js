@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import alertActions from '../../store/alert/alert-actions';
+import subjectActions from '../../store/subject/subject-actions';
 import uploadIcon from './upload_icon.png';
 import PopupCard from '../../layout/PopupCard/PopupCard';
 import Button from '../../utils/Button/Button';
@@ -13,47 +14,81 @@ const SubmitAssignment = (props) => {
   const [loading, setLoading] = useState(false);
   const [attachment, setAttachment] = useState(null);
 
-  //   const submitHandler = async (event) => {
-  //     event.preventDefault();
+  const submitHandler = async (event) => {
+    event.preventDefault();
 
-  //     setLoading(true);
+    if (!attachment) {
+      dispatch(
+        alertActions.alert({
+          alertType: 'Error',
+          info: 'Attachment cannot be empty!',
+        })
+      );
+      return;
+    }
 
-  //     try {
-  //       const data = { email };
-  //       await axios.post('/api/v1/users/forgotPassword', data);
-  //       dispatch(
-  //         alertActions.alert({
-  //           alertType: 'Success',
-  //           info: 'Password reset mail sent successfully!',
-  //         })
-  //       );
-  //       props.onClose();
-  //     } catch (err) {
-  //       if (err.response) {
-  //         dispatch(
-  //           alertActions.alert({
-  //             alertType: 'Error',
-  //             info: err.response.data.message,
-  //           })
-  //         );
-  //       } else {
-  //         dispatch(
-  //           alertActions.alert({
-  //             alertType: 'Error',
-  //             info: 'Something went wrong!',
-  //           })
-  //         );
-  //       }
-  //     }
+    setLoading(true);
 
-  //     setLoading(false);
-  //   };
+    try {
+      const data = new FormData();
+      data.append('attachment', attachment);
+      const res = await axios.post(
+        `/api/v1/classrooms/posts/${props.post._id}/assignmentSubmission`,
+        data
+      );
+
+      const post = res.data.post;
+      dispatch(subjectActions.updatePost(post));
+      dispatch(
+        alertActions.alert({
+          alertType: 'Success',
+          info: 'Assignment submitted successfully!',
+        })
+      );
+      props.onClose();
+    } catch (err) {
+      if (err.response) {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: err.response.data.message,
+          })
+        );
+      } else {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: 'Something went wrong!',
+          })
+        );
+      }
+    }
+
+    setLoading(false);
+  };
 
   return (
     <PopupCard onClose={props.onClose}>
-      <form className={styles.form}>
-        <h2 className={styles.heading}>Create a submission!</h2>
-        <p>View previous submission</p>
+      <form className={styles.form} onSubmit={submitHandler}>
+        <h2 className={styles.heading}>
+          {props.post.assignmentDetails.submission
+            ? 'Update your submission!'
+            : 'Create new submission!'}
+        </h2>
+        <p>
+          {props.post.assignmentDetails.submission ? (
+            <a
+              href={props.post.assignmentDetails.submission.attachment.url}
+              target='_blank'
+              rel='noreferrer'
+              className={styles.previousSubmission}
+            >
+              <i className='fas fa-check'></i> View previous submission
+            </a>
+          ) : (
+            'Submit your assignment'
+          )}
+        </p>
 
         <div className={styles.uploadsContainer}>
           {attachment && (

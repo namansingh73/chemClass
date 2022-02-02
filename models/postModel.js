@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const AppError = require('../utils/appError');
 
 const commentSchema = new mongoose.Schema({
   user: {
@@ -20,10 +21,6 @@ const assignmentSchema = new mongoose.Schema({
   due: {
     type: Date,
     required: [true, 'Assignment must have a deadline'],
-    validate: {
-      validator: (val) => val > Date.now(),
-      message: 'Due date must be of future',
-    },
     default: () => Date.now() + 24 * 60 * 60 * 1000,
   },
   submissions: {
@@ -42,6 +39,15 @@ const assignmentSchema = new mongoose.Schema({
     ],
     default: [],
   },
+});
+
+assignmentSchema.pre('save', function (next) {
+  if (!this.isNew && !this.isModified('due')) return next();
+
+  if (this.due < Date.now()) {
+    throw new AppError('Due date must be of future!', 400);
+  }
+  next();
 });
 
 const postSchema = new mongoose.Schema(

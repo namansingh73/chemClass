@@ -37,6 +37,7 @@
   cursor: pointer;
   border-radius: 50%;
   position: relative;
+  margin-left: 1.5rem;
 }
 
 .classLinkCopyBtn i {

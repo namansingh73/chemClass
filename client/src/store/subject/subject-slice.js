@@ -8,6 +8,10 @@ const subjectSlice = createSlice({
       return action.payload;
     },
 
+    updateSubject(state, action) {
+      return action.payload;
+    },
+
     // payload -> updated post
     updatePost(state, action) {
       const updatedPost = action.payload;
