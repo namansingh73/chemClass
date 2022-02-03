@@ -1,5 +1,5 @@
-const AppError = require('./../utils/appError');
-const capitalize = require('../utils/capitalize.js');
+const AppError = require('../utils/appError');
+const capitalize = require('../utils/capitalize');
 
 const handleDuplicateFieldsDB = (err) => {
   const value = capitalize(Object.keys(err.keyValue)[0]);
@@ -33,13 +33,12 @@ const sendErrorProd = (err, req, res) => {
           status: err.status,
           message: err.message,
         });
-      } else {
-        return res.status(err.statusCode).json({
-          status: err.status,
-          message: err.message,
-          errorOnlyInDev: err,
-        });
       }
+      return res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+        errorOnlyInDev: err,
+      });
     }
     // B) Programming or other unknown error: don't leak error details
     // 1) Log error

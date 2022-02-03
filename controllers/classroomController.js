@@ -166,7 +166,7 @@ exports.postaPost = catchAsync(async (req, res, next) => {
     );
   }
 
-  let assignmentDetails = undefined;
+  let assignmentDetails;
 
   if (req.query.postType === 'assignment') {
     assignmentDetails = {
@@ -184,7 +184,7 @@ exports.postaPost = catchAsync(async (req, res, next) => {
 
     attachments = [];
 
-    for (let i = 0; i < req.files.length; ++i) {
+    for (let i = 0; i < req.files.length; i += 1) {
       attachments.push({
         ...cloudinaryResponses[i],
         originalName: req.files[i].originalname,
@@ -275,7 +275,7 @@ exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
     (submission) => submission.student.toString() === req.user.id.toString()
   );
 
-  let oldSubmissionId = undefined;
+  let oldSubmissionId;
 
   if (submissionIndex !== -1) {
     oldSubmissionId =
