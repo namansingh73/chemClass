@@ -59,7 +59,6 @@ const UserItem = (props) => {
           href={props.submission.attachment.url}
           target='_blank'
           rel='noreferrer'
-          disabled
         >
           <i className='fab fa-telegram-plane'></i>
         </Tooltip>
