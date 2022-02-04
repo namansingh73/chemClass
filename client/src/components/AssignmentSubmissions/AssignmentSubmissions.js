@@ -4,6 +4,7 @@ import axios from 'axios';
 import alertActions from '../../store/alert/alert-actions';
 import PopupCard from '../../layout/PopupCard/PopupCard';
 import UserItem from './UserItem';
+import submissionSpinner from './spinner_submission.gif';
 import styles from './AssignmentSubmissions.module.css';
 
 const AssignmentSubmissions = (props) => {
@@ -38,10 +39,21 @@ const AssignmentSubmissions = (props) => {
   return (
     <PopupCard onClose={props.onClose}>
       <h2 className={styles.heading}>Submissions</h2>
-      {subject.students.length === 0
+      {loading && (
+        <img
+          src={submissionSpinner}
+          alt='Loading..'
+          className={styles.loadingSpinner}
+        />
+      )}
+      {!loading && subject.students.length === 0
         ? 'No students'
         : subject.students.map((student) => (
             <UserItem
+              post={props.post}
+              submission={submissions.find(
+                (submission) => submission.student === student._id
+              )}
               key={student._id}
               type='student'
               user={student}

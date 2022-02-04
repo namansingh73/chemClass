@@ -1,66 +1,25 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import subjectActions from '../../store/subject/subject-actions';
-import alertActions from '../../store/alert/alert-actions';
+import React from 'react';
 import Tooltip from '../../utils/Tooltip/Tooltip';
 import avatarStudent from './avatarStudent.png';
 import avatarInstructor from './avatarInstructor.png';
 import styles from './UserItem.module.css';
 
 const UserItem = (props) => {
-  const dispatch = useDispatch();
-  const subject = useSelector(({ subject }) => subject);
-  const auth = useSelector(({ auth }) => auth);
-  const isInstructor = auth.user._id === subject.instructor._id;
+  let status = 'Missing';
+  let color = 'red';
 
-  const [loading, setLoading] = useState(false);
-
-  const clickHandler = async (event) => {
-    if (loading) {
-      return;
+  if (props.submission) {
+    if (
+      new Date(props.submission.submittedAt) >
+      new Date(props.post.assignmentDetails.due)
+    ) {
+      status = 'Submitted late';
+      color = 'yellowOrange';
+    } else {
+      status = 'Submitted';
+      color = 'green';
     }
-
-    if (!window.confirm(`${props.isDisabled ? 'Enable' : 'Disable'} user?`)) {
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const res = await axios.patch(
-        `/api/v1/classrooms/${subject._id}/students/${props.user._id}/${
-          props.isDisabled ? 'enable' : 'disable'
-        }`
-      );
-
-      const updatedSubject = res.data.classroom;
-      dispatch(subjectActions.updateSubject(updatedSubject));
-      dispatch(
-        alertActions.alert({
-          alertType: 'Success',
-          info: 'User status updated successfully!',
-        })
-      );
-    } catch (err) {
-      if (err.response) {
-        dispatch(
-          alertActions.alert({
-            alertType: 'Error',
-            info: err.response.data.message,
-          })
-        );
-      } else {
-        dispatch(
-          alertActions.alert({
-            alertType: 'Error',
-            info: 'Something went wrong!',
-          })
-        );
-      }
-    }
-    setLoading(false);
-  };
+  }
 
   return (
     <div className={styles.outerContainer}>
@@ -77,24 +36,32 @@ const UserItem = (props) => {
           props.isDisabled && styles.name__disabled
         }`}
       >
-        {props.user.name}
-        {auth.user._id === props.user._id && ' (You)'}
-      </div>
-      {isInstructor && props.type !== 'instructor' && (
-        <Tooltip
-          onClick={clickHandler}
-          direction='left'
-          hoverText={props.isDisabled ? 'Enable' : 'Disable'}
-          DomElement='button'
-          className={`${styles.button} ${
-            props.isDisabled && styles.button__disable
-          }`}
+        {props.user.name}{' '}
+        <span
+          style={{
+            color: `var(--color-${color})`,
+            fontSize: '1.4rem',
+            fontWeight: '600',
+          }}
         >
-          {props.isDisabled ? (
-            <i className='fas fa-user-check'></i>
-          ) : (
-            <i className='fas fa-user-times'></i>
-          )}
+          {`(${status})`}
+        </span>
+      </div>
+
+      {props.submission && (
+        <Tooltip
+          direction='left'
+          hoverText='View Submission'
+          DomElement='a'
+          className={`${styles.button} ${
+            status === 'Submitted late' && styles.button_late
+          }`}
+          href={props.submission.attachment.url}
+          target='_blank'
+          rel='noreferrer'
+          disabled
+        >
+          <i className='fab fa-telegram-plane'></i>
         </Tooltip>
       )}
     </div>

@@ -29,10 +29,11 @@
   outline: none;
   background-color: var(--color-white);
   font-size: 2rem;
-  color: var(--color-red);
+  color: var(--color-green);
   cursor: pointer;
+  text-decoration: none;
 }
 
-.button__disable {
-  color: var(--color-green);
+.button_late {
+  color: var(--color-yellowOrange);
 }

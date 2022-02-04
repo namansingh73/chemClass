@@ -6,6 +6,7 @@ const AttachmentItem = (props) => {
     <a
       className={styles.attachmentItem}
       href={props.attachment.url}
+      rel='noreferrer'
       target='_blank'
     >
       <img
