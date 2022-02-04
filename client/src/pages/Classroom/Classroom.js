@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Fuse from 'fuse.js';
+import classroomAction from '../../store/classroom/classroom-actions';
 import ClassroomContainer from '../../components/Classroom/ClassroomContainer';
 import AddClass from '../../components/Classroom/AddClass';
 import ClassroomCard from '../../components/Classroom/ClassroomCard';
@@ -14,46 +16,39 @@ import image5 from '../../images/classroom-5.jpg';
 const images = [image1, image2, image3, image4, image5];
 
 const Classroom = () => {
-  const [loading, setLoading] = useState(true);
-  const [classrooms, setClassrooms] = useState([]);
-  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
+  const { loading, classrooms, error, searchParameter } = useSelector(
+    ({ classroom }) => classroom
+  );
 
   useEffect(() => {
-    if (!loading) {
-      return;
-    }
-
-    const fetchClassrooms = async () => {
-      try {
-        const res = await axios.get('/api/v1/classrooms/');
-        setClassrooms(res.data.data);
-      } catch (err) {
-        setError(true);
-      }
-      setLoading(false);
+    return () => {
+      dispatch(classroomAction.updateSearchParamter(''));
     };
-
-    fetchClassrooms();
-  }, [loading]);
+  }, [dispatch]);
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
   if (error) {
-    return (
-      <Error
-        onReload={() => {
-          setLoading(true);
-          setError(false);
-        }}
-      />
-    );
+    return <Error onReload={() => dispatch(classroomAction.loadClassroom())} />;
+  }
+
+  let filteredClassrooms = classrooms;
+
+  if (searchParameter) {
+    const fuse = new Fuse(classrooms, {
+      keys: ['name'],
+      threshold: 0.45,
+    });
+
+    filteredClassrooms = fuse.search(searchParameter).map(({ item }) => item);
   }
 
   return (
     <ClassroomContainer>
-      {classrooms.map((classroom, idx) => (
+      {filteredClassrooms.map((classroom, idx) => (
         <ClassroomCard
           key={classroom._id}
           image={images[idx % 5]}
@@ -69,8 +64,7 @@ const Classroom = () => {
       ))}
       <AddClass
         onClassJoined={() => {
-          setLoading(true);
-          setError(false);
+          dispatch(classroomAction.loadClassrooms());
         }}
       />
     </ClassroomContainer>

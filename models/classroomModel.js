@@ -31,6 +31,15 @@ const classroomSchema = new mongoose.Schema(
       ],
       default: [],
     },
+    disabledStudents: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+      ],
+      default: [],
+    },
     meetLink: {
       type: String,
       validate: [validator.isURL, 'Invalid Meet Link'],

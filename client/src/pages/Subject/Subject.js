@@ -22,10 +22,6 @@ const Subject = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!loading) {
-      return;
-    }
-
     const fetchClassroom = async () => {
       try {
         const res = await axios.get(`/api/v1/classrooms/${params.id}`);
@@ -37,7 +33,7 @@ const Subject = () => {
     };
 
     fetchClassroom();
-  }, [dispatch, loading, params.id]);
+  }, [dispatch, params.id]);
 
   if (loading) {
     return <LoadingSpinner />;

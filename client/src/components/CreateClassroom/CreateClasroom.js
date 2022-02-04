@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import alertActions from '../../store/alert/alert-actions';
+import classroomActions from '../../store/classroom/classroom-actions';
 import PopupCard from '../../layout/PopupCard/PopupCard';
 import Input from '../../utils/Input/Input';
 import Button from '../../utils/Button/Button';
@@ -28,6 +29,7 @@ const CreateClassroom = (props) => {
           info: 'Classroom created successfully!',
         })
       );
+      dispatch(classroomActions.loadClassrooms());
       props.onClose();
       navigate(`/classrooms/${res.data.data._id}/0`);
     } catch (err) {
@@ -46,8 +48,8 @@ const CreateClassroom = (props) => {
           })
         );
       }
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

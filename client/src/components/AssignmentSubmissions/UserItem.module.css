@@ -1,0 +1,38 @@
+.outerContainer {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.outerContainer:hover {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 1rem;
+}
+
+.outerContainer:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.avatarIcon {
+  margin-right: 1rem;
+  width: 3.5rem;
+  border-radius: 50%;
+}
+
+.name__disabled {
+  color: var(--color-grey-dark-2);
+}
+
+.button {
+  margin-left: auto;
+  border: none;
+  outline: none;
+  background-color: var(--color-white);
+  font-size: 2rem;
+  color: var(--color-red);
+  cursor: pointer;
+}
+
+.button__disable {
+  color: var(--color-green);
+}

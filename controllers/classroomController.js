@@ -79,8 +79,11 @@ exports.postComment = catchAsync(async (req, res, next) => {
   }
 
   if (
-    post.classroom.instructor.toString() !== req.user.id &&
-    !post.classroom.students.find(
+    (post.classroom.instructor.toString() !== req.user.id &&
+      !post.classroom.students.find(
+        (student) => student.toString() === req.user.id
+      )) ||
+    post.classroom.disabledStudents.find(
       (student) => student.toString() === req.user.id
     )
   ) {
@@ -133,7 +136,10 @@ exports.deleteComment = catchAsync(async (req, res, next) => {
 
   if (
     post.classroom.instructor.toString() !== req.user.id &&
-    post.comments[commentIdx].user.toString() !== req.user.id
+    post.comments[commentIdx].user.toString() !== req.user.id &&
+    post.classroom.disabledStudents.find(
+      (student) => student.toString() === req.user.id
+    )
   ) {
     throw new AppError(
       'You dont have the permissions to perform the action',
@@ -252,6 +258,9 @@ exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
   if (
     !post.classroom.students.find(
       (student) => student.toString() === req.user.id
+    ) ||
+    post.classroom.disabledStudents.find(
+      (student) => student.toString() === req.user.id
     )
   ) {
     throw new AppError(
@@ -321,11 +330,40 @@ exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getAssignmentSubmissions = catchAsync(async (req, res, next) => {
+  const post = await Post.findById(req.params.postId).populate(
+    'classroom',
+    'instructor'
+  );
+
+  if (!post || post.postType !== 'assignment') {
+    throw new AppError('Assignment not found', 400);
+  }
+
+  if (post.classroom.instructor.toString() !== req.user.id) {
+    throw new AppError("You don't have permission to perform this action", 400);
+  }
+
+  res.status(200).json({
+    status: 'success',
+    messsage: 'Get assignment submissions successful!',
+    submissions: post.assignmentDetails.submissions,
+  });
+});
+
 exports.getClassrooms = catchAsync(async (req, res, next) => {
   const classrooms = await Classroom.aggregate([
     {
       $match: {
-        $or: [{ instructor: req.user._id }, { students: req.user._id }],
+        $or: [
+          { instructor: req.user._id },
+          {
+            $and: [
+              { students: req.user._id },
+              { disabledStudents: { $ne: req.user._id } },
+            ],
+          },
+        ],
       },
     },
     {
@@ -436,7 +474,12 @@ exports.getSingleClassroom = catchAsync(async (req, res, next) => {
   if (
     !classroom ||
     (classroom.instructor.toString() !== req.user.id &&
-      !classroom.students.find((student) => student.toString() === req.user.id))
+      !classroom.students.find(
+        (student) => student.toString() === req.user.id
+      )) ||
+    classroom.disabledStudents.find(
+      (student) => student.toString() === req.user.id
+    )
   ) {
     throw new AppError("Classroom doesn't exists", 404);
   }
@@ -452,6 +495,15 @@ exports.getSingleClassroom = catchAsync(async (req, res, next) => {
       populate: {
         path: 'comments.user',
         select: ['name', 'photo'],
+      },
+    },
+    {
+      path: 'students',
+      select: ['name', 'photo'],
+      options: {
+        sort: {
+          name: 1,
+        },
       },
     },
     {
@@ -515,6 +567,15 @@ exports.updateClassroom = catchAsync(async (req, res, next) => {
       },
     },
     {
+      path: 'students',
+      select: ['name', 'photo'],
+      options: {
+        sort: {
+          name: 1,
+        },
+      },
+    },
+    {
       path: 'instructor',
       select: ['name', 'photo'],
     },
@@ -525,6 +586,136 @@ exports.updateClassroom = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     messsage: 'Class updated successfully!',
+    classroom,
+  });
+});
+
+exports.disableStudent = catchAsync(async (req, res, next) => {
+  const classroom = await Classroom.findById(req.params.classroomId);
+
+  if (!classroom) {
+    throw new AppError('Classroom not found', 400);
+  }
+
+  if (classroom.instructor.toString() !== req.user.id) {
+    throw new AppError("You don't have permission to perform this action", 400);
+  }
+
+  if (
+    classroom.students.find(
+      (student) => student.toString() === req.params.studentId
+    )
+  ) {
+    if (
+      !classroom.disabledStudents.find(
+        (student) => student.toString() === req.params.studentId
+      )
+    ) {
+      classroom.disabledStudents.push(req.params.studentId);
+    } else {
+      throw new AppError('Student already disabled', 400);
+    }
+  } else {
+    throw new AppError('Student not found', 400);
+  }
+
+  await classroom.save();
+
+  await classroom.populate([
+    {
+      path: 'posts',
+      options: {
+        sort: {
+          createdAt: -1,
+        },
+      },
+      populate: {
+        path: 'comments.user',
+        select: ['name', 'photo'],
+      },
+    },
+    {
+      path: 'students',
+      select: ['name', 'photo'],
+      options: {
+        sort: {
+          name: 1,
+        },
+      },
+    },
+    {
+      path: 'instructor',
+      select: ['name', 'photo'],
+    },
+  ]);
+
+  classroom.submissions = undefined;
+
+  res.status(200).json({
+    status: 'success',
+    messsage: 'Student disabled successfully!',
+    classroom,
+  });
+});
+
+exports.enableStudent = catchAsync(async (req, res, next) => {
+  const classroom = await Classroom.findById(req.params.classroomId);
+
+  if (!classroom) {
+    throw new AppError('Classroom not found', 400);
+  }
+
+  if (classroom.instructor.toString() !== req.user.id) {
+    throw new AppError("You don't have permission to perform this action", 400);
+  }
+
+  if (
+    classroom.disabledStudents.find(
+      (student) => student.toString() === req.params.studentId
+    )
+  ) {
+    classroom.disabledStudents = classroom.disabledStudents.filter(
+      (student) => student.toString() !== req.params.studentId
+    );
+  } else {
+    throw new AppError('Student not found or not disabled', 400);
+  }
+
+  await classroom.save();
+
+  await classroom.populate([
+    {
+      path: 'posts',
+      options: {
+        sort: {
+          createdAt: -1,
+        },
+      },
+      populate: {
+        path: 'comments.user',
+        select: ['name', 'photo'],
+      },
+    },
+    {
+      path: 'students',
+      select: ['name', 'photo'],
+      options: {
+        sort: {
+          name: 1,
+        },
+      },
+    },
+    {
+      path: 'instructor',
+      select: ['name', 'photo'],
+    },
+  ]);
+
+  classroom.submissions = undefined;
+
+  res.status(200).json({
+    status: 'success',
+    messsage: 'Student enabled successfully!',
     classroom,
   });
 });

@@ -6,6 +6,28 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.studentsCount {
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  background-color: var(--color-white);
+  opacity: 85%;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-primary);
+  z-index: 10;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.studentsCount:hover {
+  transform: translateY(-1px) scale(1.05);
+}
+
+.iconStudent {
+  color: var(--color-yellow);
+}
+
 .headerImage {
   width: 100%;
   position: absolute;

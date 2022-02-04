@@ -35,12 +35,24 @@ router.post(
   classroomController.postaPost
 );
 
-router.post(
-  '/posts/:postId/assignmentSubmission',
-  classroomController.uploadFileSubmission,
-  classroomController.postAssignmentSubmission
-);
+router
+  .route('/posts/:postId/assignmentSubmission')
+  .post(
+    classroomController.uploadFileSubmission,
+    classroomController.postAssignmentSubmission
+  )
+  .get(classroomController.getAssignmentSubmissions);
 
 router.delete('/:classId?/posts/:postId', classroomController.deletePost);
+
+router.patch(
+  '/:classroomId/students/:studentId/disable',
+  classroomController.disableStudent
+);
+
+router.patch(
+  '/:classroomId/students/:studentId/enable',
+  classroomController.enableStudent
+);
 
 module.exports = router;

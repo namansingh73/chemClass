@@ -1,0 +1,16 @@
+.heading {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.heading::before {
+  content: '';
+  position: absolute;
+  background: var(--color-blue-dark);
+  width: 8rem;
+  height: 0.3rem;
+  border-radius: 0.5rem;
+  bottom: -0.7rem;
+  left: 0;
+}

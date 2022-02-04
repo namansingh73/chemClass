@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SubmitAssignment from '../../SubmitAssignment/SubmitAssignment';
+import AssignmentSubmissions from '../../AssignmentSubmissions/AssignmentSubmissions';
 import Button from '../../../utils/Button/Button';
 import userImage from './user.png';
 import prettyDate from '../../../utils/HelperFunctions/prettyDate';
@@ -11,6 +12,10 @@ const Header = (props) => {
   const auth = useSelector(({ auth }) => auth);
   const [displaySubmitAssignmentPopup, setDisplaySubmitAssignmentPopup] =
     useState(false);
+  const [
+    displayAssignmentSubmissionsPopup,
+    setDisplayAssignmentSubmissionsPopup,
+  ] = useState(false);
 
   const isInstructor = auth.user._id === subject.instructor._id;
 
@@ -76,13 +81,29 @@ const Header = (props) => {
       </div>
       <div className={styles.submission}>
         <div>
-          {props.post.postType === 'assignment' && (
+          {props.post.postType === 'assignment' && isInstructor && (
+            <Button
+              onClick={() => setDisplayAssignmentSubmissionsPopup(true)}
+              rounded
+              color='red'
+            >
+              Submissions
+            </Button>
+          )}
+          {displayAssignmentSubmissionsPopup && (
+            <AssignmentSubmissions
+              onClose={() => setDisplayAssignmentSubmissionsPopup(false)}
+              post={props.post}
+            />
+          )}
+
+          {props.post.postType === 'assignment' && !isInstructor && (
             <Button
               onClick={() => setDisplaySubmitAssignmentPopup(true)}
               rounded
-              color={isInstructor ? 'red' : 'blue'}
+              color={'blue'}
             >
-              {isInstructor ? 'Submissions' : 'Submit'}
+              Submit
             </Button>
           )}
           {displaySubmitAssignmentPopup && (
