@@ -2840,6 +2840,28 @@
   "resolved" "https://registry.npmjs.org/check-types/-/check-types-11.1.2.tgz"
   "version" "11.1.2"
 
+"chemclass@file:..":
+  "resolved" "file:.."
+  "version" "1.0.0"
+  dependencies:
+    "bcryptjs" "^2.4.3"
+    "cloudinary" "^1.28.1"
+    "compression" "^1.7.4"
+    "cookie-parser" "^1.4.6"
+    "dotenv" "^14.2.0"
+    "express" "^4.17.2"
+    "google-auth-library" "^7.11.0"
+    "html-to-text" "^8.1.0"
+    "jsonwebtoken" "^8.5.1"
+    "mongoose" "^6.1.7"
+    "morgan" "^1.10.0"
+    "multer" "^1.4.4"
+    "nanoid" "^3.2.0"
+    "nodemailer" "^6.7.2"
+    "pug" "^3.0.2"
+    "streamifier" "^0.1.1"
+    "validator" "^13.7.0"
+
 "chokidar@^3.4.2", "chokidar@^3.5.2", "chokidar@>=3.0.0 <4.0.0":
   "integrity" "sha512-ekGhOnNVPgT77r4K/U3GDhu+FQ2S8TnK/s2KbIGXi0SZWuwkZ2QNyfWdZW+TVfn84DpEP7rLeCt2UI6bJ8GwbQ=="
   "resolved" "https://registry.npmjs.org/chokidar/-/chokidar-3.5.2.tgz"
