@@ -1,5 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import alertActions from '../../store/alert/alert-actions';
+import clasroomActions from '../../store/classroom/classroom-actions';
 import SubjectCard from './SubjectCard';
 import Tooltip from '../../utils/Tooltip/Tooltip';
 import PostAPost from '../PostAPost/PostAPost';
@@ -8,15 +12,60 @@ import EditClassroom from '../EditClassroom/EditClassroom';
 import styles from './LeftBlock.module.css';
 
 const LeftBlock = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const subject = useSelector(({ subject }) => subject);
   const auth = useSelector(({ auth }) => auth);
   const [postType, setPostType] = useState('');
   const [copied, setCopied] = useState(false);
-  const [displayEditClasroom, setDisplayEditClassroom] = useState(false);
+  const [displayEditClassroom, setDisplayEditClassroom] = useState(false);
 
   const isInstructor = auth.user._id === subject.instructor._id;
 
   let assignmentCount = 0;
+
+  const archiveHandler = async () => {
+    if (
+      !window.confirm(`${subject.archived ? 'Unarchive' : 'Archive'} class`)
+    ) {
+      return;
+    }
+
+    try {
+      await axios.patch(
+        `/api/v1/classrooms/${subject._id}/${
+          subject.archived ? 'unarchive' : 'archive'
+        }`
+      );
+
+      dispatch(
+        alertActions.alert({
+          alertType: 'Success',
+          info: `Class ${
+            !subject.archived ? 'unarchived' : 'archived'
+          } successfully!`,
+        })
+      );
+      dispatch(clasroomActions.loadClassrooms());
+      navigate(`${!subject.archived ? '/classrooms/archived' : '/classrooms'}`);
+    } catch (err) {
+      if (err.response) {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: err.response.data.message,
+          })
+        );
+      } else {
+        dispatch(
+          alertActions.alert({
+            alertType: 'Error',
+            info: 'Something went wrong!',
+          })
+        );
+      }
+    }
+  };
 
   subject.posts.forEach((post) => {
     if (post.postType === 'assignment' && !post.assignmentDetails.submission) {
@@ -40,7 +89,7 @@ const LeftBlock = () => {
               <i className='fas fa-pencil-alt'></i>
             </button>
           )}
-          {displayEditClasroom && (
+          {displayEditClassroom && (
             <EditClassroom onClose={() => setDisplayEditClassroom(false)} />
           )}
           <Tooltip
@@ -91,6 +140,15 @@ const LeftBlock = () => {
               <i className='fas fa-hashtag'></i>
             </span>
             <span className={styles.classLinkText}>{subject.classCode}</span>
+            <Tooltip
+              direction='top'
+              hoverText={subject.archived ? 'Unarchive' : 'Archive'}
+              DomElement='button'
+              className={styles.classLinkCopyBtn}
+              onClick={archiveHandler}
+            >
+              <i className='fas fa-archive'></i>
+            </Tooltip>
             <Tooltip
               direction='top'
               hoverText={copied ? 'Copied!' : 'Copy Code'}

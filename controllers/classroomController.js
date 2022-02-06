@@ -590,6 +590,48 @@ exports.updateClassroom = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.archiveClassroom = catchAsync(async (req, res, next) => {
+  const classroom = await Classroom.findById(req.params.classroomId);
+
+  if (!classroom) {
+    throw new AppError('Classroom not found', 400);
+  }
+
+  if (classroom.instructor.toString() !== req.user.id) {
+    throw new AppError("You don't have permission to perform this action", 400);
+  }
+
+  classroom.archived = true;
+
+  await classroom.save();
+
+  res.status(200).json({
+    status: 'success',
+    messsage: 'Class archived successfully!',
+  });
+});
+
+exports.unarchiveClassroom = catchAsync(async (req, res, next) => {
+  const classroom = await Classroom.findById(req.params.classroomId);
+
+  if (!classroom) {
+    throw new AppError('Classroom not found', 400);
+  }
+
+  if (classroom.instructor.toString() !== req.user.id) {
+    throw new AppError("You don't have permission to perform this action", 400);
+  }
+
+  classroom.archived = false;
+
+  await classroom.save();
+
+  res.status(200).json({
+    status: 'success',
+    messsage: 'Class unarchived successfully!',
+  });
+});
+
 exports.disableStudent = catchAsync(async (req, res, next) => {
   const classroom = await Classroom.findById(req.params.classroomId);
 
@@ -724,6 +766,9 @@ exports.getAssignmentSummary = catchAsync(async (req, res, next) => {
   const classrooms = await Classroom.find(
     {
       students: req.user._id,
+      disabledStudents: {
+        $ne: req.user.id,
+      },
     },
     {
       _id: 1,

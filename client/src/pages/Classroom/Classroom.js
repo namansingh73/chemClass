@@ -15,7 +15,7 @@ import image5 from '../../images/classroom-5.jpg';
 
 const images = [image1, image2, image3, image4, image5];
 
-const Classroom = () => {
+const Classroom = (props) => {
   const dispatch = useDispatch();
   const { loading, classrooms, error, searchParameter } = useSelector(
     ({ classroom }) => classroom
@@ -44,6 +44,10 @@ const Classroom = () => {
     });
 
     filteredClassrooms = fuse.search(searchParameter).map(({ item }) => item);
+  } else if (props.archived) {
+    filteredClassrooms = classrooms.filter((classroom) => classroom.archived);
+  } else {
+    filteredClassrooms = classrooms.filter((classroom) => !classroom.archived);
   }
 
   return (

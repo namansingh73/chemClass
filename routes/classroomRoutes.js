@@ -7,13 +7,13 @@ const router = express.Router();
 // Protect all routes after this middleware
 router.use(authController.protect);
 
-router
-  .route('/')
-  .get(classroomController.getClassrooms)
-  .post(
-    classroomController.createClassroomAddInstructor,
-    classroomController.createClassroom
-  );
+router.get('/', classroomController.getClassrooms);
+
+router.post(
+  '/',
+  classroomController.createClassroomAddInstructor,
+  classroomController.createClassroom
+);
 
 router.get('/assignmentSummary', classroomController.getAssignmentSummary);
 
@@ -21,6 +21,9 @@ router
   .route('/:id')
   .get(classroomController.getSingleClassroom)
   .patch(classroomController.updateClassroom);
+
+router.patch('/:classroomId/archive', classroomController.archiveClassroom);
+router.patch('/:classroomId/unarchive', classroomController.unarchiveClassroom);
 
 router.post('/join/:uuid', classroomController.joinClassroom);
 

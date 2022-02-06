@@ -7,7 +7,7 @@ function SidebarList() {
     <ul className={styles.sidebarList}>
       <li className={styles.sidebarListItem}>
         <NavLink
-          to='/'
+          to='/me'
           className={({ isActive }) =>
             `${styles.sidebarListLink} ${
               isActive ? styles.sidebarListLink__active : ''
@@ -15,9 +15,9 @@ function SidebarList() {
           }
         >
           <span className={styles.sidebarListIcon}>
-            <i className='fas fa-store-alt' />
+            <i className='fas fa-user-graduate'></i>
           </span>
-          Home
+          Profile
         </NavLink>
       </li>
       <li className={styles.sidebarListItem}>
@@ -37,7 +37,7 @@ function SidebarList() {
       </li>
       <li className={styles.sidebarListItem}>
         <NavLink
-          to='/tasks'
+          to='/classrooms/archived'
           className={({ isActive }) =>
             `${styles.sidebarListLink} ${
               isActive ? styles.sidebarListLink__active : ''
@@ -47,23 +47,21 @@ function SidebarList() {
           <span className={styles.sidebarListIcon}>
             <i className='far fa-calendar-alt' />
           </span>
-          Tasks
+          Archived
         </NavLink>
       </li>
       <li className={styles.sidebarListItem}>
-        <NavLink
-          to='/notices'
-          className={({ isActive }) =>
-            `${styles.sidebarListLink} ${
-              isActive ? styles.sidebarListLink__active : ''
-            }`
-          }
+        <a
+          href='https://github.com/namansingh73/chemClass'
+          className={styles.sidebarListLink}
+          target='_blank'
+          rel='noreferrer'
         >
           <span className={styles.sidebarListIcon}>
-            <i className='far fa-clipboard' />
+            <i className='far fa-question-circle'></i>
           </span>
-          Notices
-        </NavLink>
+          About Us
+        </a>
       </li>
     </ul>
   );

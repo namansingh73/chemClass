@@ -4,7 +4,9 @@ import SubmitAssignment from '../../SubmitAssignment/SubmitAssignment';
 import AssignmentSubmissions from '../../AssignmentSubmissions/AssignmentSubmissions';
 import Button from '../../../utils/Button/Button';
 import userImage from './user.png';
-import prettyDate from '../../../utils/HelperFunctions/prettyDate';
+import prettyDate, {
+  formattedTime,
+} from '../../../utils/HelperFunctions/prettyDate';
 import styles from './Header.module.css';
 
 const Header = (props) => {
@@ -55,12 +57,7 @@ const Header = (props) => {
             Due:{' '}
             {(() => {
               const d = new Date(props.post.assignmentDetails.due);
-              const dStr =
-                prettyDate(d, false) +
-                ' - ' +
-                d.toLocaleTimeString().substr(0, 5) +
-                ' ' +
-                d.toLocaleTimeString().substr(9, 2);
+              const dStr = prettyDate(d, false) + ' - ' + formattedTime(d);
               return dStr;
             })()}
             {!isInstructor && (

@@ -1,5 +1,6 @@
-// const path = require('path');
+const path = require('path');
 const express = require('express');
+const compression = require('compression');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./routes/userRoutes');
@@ -12,7 +13,7 @@ const app = express();
 app.enable('trust proxy');
 
 // Development logging
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 
@@ -20,18 +21,21 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
+app.use(compression());
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/classrooms', classroomRouter);
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
 app.use(errorController);
 
-// app.get('*', (req, res) =>
-//   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-// );
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  );
+}
 
 module.exports = app;

@@ -1,16 +1,25 @@
 .outerContainer {
   color: inherit;
   text-decoration: inherit;
+  display: block;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 2rem;
+}
+
+.outerContainer:hover {
+  transform: translateY(-1px);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: 0.2s;
+}
+
+.outerContainer:not(:last-child) {
+  margin-bottom: 1.5rem;
 }
 
 .miscSidebarClassEventItem {
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.miscSidebarClassEventItem:not(:last-child) {
-  margin-bottom: 1rem;
 }
 
 .logoBox {

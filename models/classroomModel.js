@@ -44,6 +44,10 @@ const classroomSchema = new mongoose.Schema(
       type: String,
       validate: [validator.isURL, 'Invalid Meet Link'],
     },
+    archived: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

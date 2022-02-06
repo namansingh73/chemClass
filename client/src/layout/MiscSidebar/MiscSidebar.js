@@ -40,10 +40,12 @@ const MiscSidebar = () => {
 
   const filteredAssignments = assignments.filter((assignment) => {
     const due = new Date(assignment.assignmentDetails.due);
+    const dayUpdated = new Date(day.getTime() - 12 * 60 * 60 * 1000);
+
     return (
       !assignment.assignmentDetails.submitted &&
-      day <= due &&
-      due < new Date(day.getTime() + 24 * 60 * 60 * 1000)
+      dayUpdated <= due &&
+      due < new Date(dayUpdated.getTime() + 24 * 60 * 60 * 1000)
     );
   });
 
