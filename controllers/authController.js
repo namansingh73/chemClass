@@ -1,10 +1,14 @@
 const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+const { nanoid } = require('nanoid');
+const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -51,6 +55,39 @@ exports.signup = catchAsync(async (req, res, next) => {
   createSendToken(newUser, 201, req, res);
 });
 
+exports.googleSignup = catchAsync(async (req, res, next) => {
+  const { token } = req.body;
+  let ticket;
+
+  try {
+    ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+  } catch (err) {
+    return next(new AppError('Login failed!', 400));
+  }
+
+  const { email, name } = ticket.getPayload();
+
+  const password = nanoid(12);
+  const passwordConfirm = password;
+
+  const newUser = await User.create({
+    name,
+    email,
+    password,
+    passwordConfirm,
+  });
+
+  await new Email(
+    newUser,
+    `${req.protocol}://${req.get('host')}`
+  ).sendWelcome();
+
+  createSendToken(newUser, 201, req, res);
+});
+
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -73,6 +110,30 @@ exports.logout = (req, res) => {
   res.clearCookie('jwt');
   res.status(200).json({ status: 'success' });
 };
+
+exports.googleLogin = catchAsync(async (req, res, next) => {
+  const { token } = req.body;
+  let ticket;
+
+  try {
+    ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+  } catch (err) {
+    return next(new AppError('Login failed!', 400));
+  }
+
+  const { email } = ticket.getPayload();
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return next(new AppError('Login failed!', 400));
+  }
+
+  // 3) If everything ok, send token to client
+  createSendToken(user, 200, req, res);
+});
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there

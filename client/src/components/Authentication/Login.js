@@ -43,7 +43,7 @@ const Login = () => {
       dispatch(
         alertActions.alert({
           alertType: 'Success',
-          info: 'Welcome back Jonas!',
+          info: 'Welcome back!',
         })
       );
 

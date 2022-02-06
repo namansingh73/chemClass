@@ -719,3 +719,47 @@ exports.enableStudent = catchAsync(async (req, res, next) => {
     classroom,
   });
 });
+
+exports.getAssignmentSummary = catchAsync(async (req, res, next) => {
+  const classrooms = await Classroom.find(
+    {
+      students: req.user._id,
+    },
+    {
+      _id: 1,
+      name: 1,
+    }
+  );
+
+  let posts = await Post.find(
+    {
+      postType: 'assignment',
+      classroom: classrooms,
+    },
+    {
+      classroom: 1,
+      text: 1,
+      assignmentDetails: 1,
+    }
+  );
+
+  posts = posts.map((post) => post.toObject());
+
+  posts.forEach((post) => {
+    post.classroom = classrooms.find(
+      (classroom) => post.classroom.toString() === classroom.id
+    );
+
+    post.assignmentDetails.submitted =
+      !!post.assignmentDetails.submissions.find(
+        (submission) => submission.student.toString() === req.user.id
+      );
+
+    post.assignmentDetails.submissions = undefined;
+  });
+
+  res.status(200).json({
+    status: 'success',
+    assignments: posts,
+  });
+});

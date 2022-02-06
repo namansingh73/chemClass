@@ -1,12 +1,21 @@
 .main {
+  padding: 3vw 2vw;
+  /* min-height: calc(100vh - 8.5rem); */
+  margin-left: 25rem;
+  margin-right: 31.5rem;
+  margin-top: 8.5rem;
+  /* z-index: 10; */
+}
+
+.backgroundContainer {
   background-color: var(--color-grey-light-2);
   border-top-left-radius: 3vw;
   border-top-right-radius: 3vw;
-  padding: 3vw 2vw;
-  min-height: calc(100vh - 8.5rem);
-}
 
-.mainContainer {
-  display: grid;
-  grid-template-columns: 25rem auto max-content;
+  position: fixed;
+  left: 25rem;
+  top: 8.5rem;
+  width: calc(100% - 25rem - 31.5rem);
+  height: calc(100vh - 8.5rem);
+  z-index: -5;
 }

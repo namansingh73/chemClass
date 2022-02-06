@@ -17,13 +17,12 @@ const Main = (props) => {
   return (
     <Fragment>
       <Navbar />
-      <div className={styles.mainContainer}>
-        <Sidebar />
-        <main className={styles.main}>
-          <Outlet />
-        </main>
-        <MiscSidebar />
-      </div>
+      <div className={styles.backgroundContainer} />
+      <Sidebar />
+      <main className={styles.main}>
+        <Outlet />
+      </main>
+      <MiscSidebar />
     </Fragment>
   );
 };

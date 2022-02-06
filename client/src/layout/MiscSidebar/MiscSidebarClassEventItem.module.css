@@ -1,3 +1,8 @@
+.outerContainer {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .miscSidebarClassEventItem {
   display: flex;
   align-items: center;

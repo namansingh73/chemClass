@@ -19,13 +19,30 @@
   padding: 0.1rem;
   border-radius: 25%;
   background-color: var(--color-grey-light-2);
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border: 2px solid transparent;
 }
 
-.DayPicker-Day:hover:not(.DayPicker-Day--outside) {
+.DayPicker-Day:hover:not(.DayPicker-Day--outside),
+.DayPicker:not(.DayPicker--interactionDisabled)
+  .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
   border: 2px solid var(--color-new-blue);
+  background: var(--color-grey-light-2);
+  cursor: pointer;
+}
+
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  border: 2px solid var(--color-new-blue);
+  background: var(--color-grey-light-3_5);
+  color: inherit;
+  cursor: pointer;
+}
+
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+  border: 2px solid var(--color-new-blue);
+  background: var(--color-grey-light-3_5);
+  color: inherit;
   cursor: pointer;
 }
 
@@ -33,9 +50,12 @@
   background-color: transparent;
 }
 
-.DayPicker-Day--today {
-  color: var(--color-white);
-  background-color: var(--color-new-blue);
+.DayPicker-Day--today,
+.DayPicker--today:hover:not(.DayPicker-Day--outside),
+.DayPicker:not(.DayPicker--interactionDisabled)
+  .DayPicker-Day--today:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+  color: var(--color-white) !important;
+  background-color: var(--color-new-blue) !important;
   box-shadow: var(--shadow-secondary);
   letter-spacing: 1px;
   font-weight: normal;

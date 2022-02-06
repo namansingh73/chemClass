@@ -15,6 +15,8 @@ router
     classroomController.createClassroom
   );
 
+router.get('/assignmentSummary', classroomController.getAssignmentSummary);
+
 router
   .route('/:id')
   .get(classroomController.getSingleClassroom)
