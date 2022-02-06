@@ -15,6 +15,7 @@ const AuthenticationMain = (props) => {
   const navigate = useNavigate();
 
   const handleFailure = () => {
+    console.log(err);
     dispatch(
       alertActions.alert({
         alertType: 'Error',
