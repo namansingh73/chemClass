@@ -15,7 +15,15 @@ const RightBlockItem = (props) => {
 
   useEffect(() => {
     if (hash === `#post-${props.post._id}`) {
-      scrollDivRef.current.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 120;
+      const elementPosition = scrollDivRef.current.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
     }
   }, [hash, props.post._id]);
 

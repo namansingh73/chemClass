@@ -220,7 +220,7 @@ exports.deletePost = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.uploadFileSubmission = multerUpload(50, true).single('attachment');
+exports.uploadFileSubmission = multerUpload(10, true).single('attachment');
 
 exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
   if (!req.file) {

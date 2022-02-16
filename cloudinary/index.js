@@ -55,7 +55,7 @@ const deleteSingleFileCloudinary = async (public_id) => {
   try {
     await promisify(cloudinary.uploader.destroy)(public_id);
   } catch (err) {
-    console.log(`🤣 Cannot delete photo with public id: ${public_id}`);
+    console.log(`🤣 Cannot delete file with public id: ${public_id}`);
   }
 };
 
