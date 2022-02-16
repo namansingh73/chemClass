@@ -1,41 +1,16 @@
-const multer = require('multer');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
 const {
+  multerUpload,
   deleteSingleFileCloudinary,
   uploadProfilePhotoCloudinary,
 } = require('../cloudinary');
 
-const multerStorage = multer.memoryStorage();
-
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb(new AppError('Not an image! Please upload only images.', 400), false);
-  }
-};
-
-const upload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-  limits: { fileSize: 5 * 1024 * 1024 },
-});
+const upload = multerUpload(5);
 
 exports.uploadUserPhoto = upload.single('photo');
-
-exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
-  if (!req.file) return next();
-
-  req.photo = await uploadProfilePhotoCloudinary(
-    req.file.buffer,
-    'chemClass/profilePhotos'
-  );
-
-  next();
-});
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -58,6 +33,13 @@ exports.updateMe = catchAsync(async (req, res, next) => {
         'This route is not for password updates. Please use /updateMyPassword.',
         400
       )
+    );
+  }
+
+  if (req.file) {
+    req.photo = await uploadProfilePhotoCloudinary(
+      req.file.path,
+      'chemClass/profilePhotos'
     );
   }
 

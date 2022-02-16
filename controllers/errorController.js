@@ -1,5 +1,20 @@
+const multer = require('multer');
 const AppError = require('../utils/appError');
 const capitalize = require('../utils/capitalize');
+
+const handleErrorMulter = (err) => {
+  let message = 'Error with uploading file';
+
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    message = 'File too large';
+  } else if (err.code === 'LIMIT_FILE_COUNT') {
+    message = 'File too large';
+  } else if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+    message = 'Unexpected file';
+  }
+
+  return new AppError(message, 400);
+};
 
 const handleDuplicateFieldsDB = (err) => {
   const value = capitalize(Object.keys(err.keyValue)[0]);
@@ -74,10 +89,11 @@ module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
-  if (err.code === 11000) err = handleDuplicateFieldsDB(err);
-  if (err.name === 'ValidationError') err = handleValidationErrorDB(err);
-  if (err.name === 'JsonWebTokenError') err = handleJWTError();
-  if (err.name === 'TokenExpiredError') err = handleJWTExpiredError();
+  if (err instanceof multer.MulterError) err = handleErrorMulter(err);
+  else if (err.code === 11000) err = handleDuplicateFieldsDB(err);
+  else if (err.name === 'ValidationError') err = handleValidationErrorDB(err);
+  else if (err.name === 'JsonWebTokenError') err = handleJWTError();
+  else if (err.name === 'TokenExpiredError') err = handleJWTExpiredError();
 
   sendErrorProd(err, req, res);
 };

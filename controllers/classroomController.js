@@ -1,4 +1,3 @@
-const multer = require('multer');
 const Classroom = require('../models/classroomModel');
 const Post = require('../models/postModel');
 const catchAsync = require('../utils/catchAsync');
@@ -8,29 +7,8 @@ const {
   uploadMultipleFilesCloudinary,
   uploadSingleFileCloudinary,
   deleteSingleFileCloudinary,
+  multerUpload,
 } = require('../cloudinary');
-
-const multerStorage = multer.memoryStorage();
-
-const multerFilter = (req, file, cb) => {
-  if (
-    file.mimetype.startsWith('image') ||
-    file.mimetype === 'application/pdf'
-  ) {
-    cb(null, true);
-  } else {
-    cb(
-      new AppError('Not a valid doc! Please upload images and pdfs only.', 400),
-      false
-    );
-  }
-};
-
-const upload = multer({
-  storage: multerStorage,
-  limits: { fileSize: 50 * 1024 * 1024 },
-  fileFilter: multerFilter,
-});
 
 exports.createClassroomAddInstructor = (req, res, next) => {
   req.body = {
@@ -156,7 +134,7 @@ exports.deleteComment = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.uploadFilesPost = upload.array('attachments', 10);
+exports.uploadFilesPost = multerUpload(10, true).array('attachments', 10);
 
 exports.postaPost = catchAsync(async (req, res, next) => {
   const classroom = await Classroom.findById(req.params.classId);
@@ -184,7 +162,7 @@ exports.postaPost = catchAsync(async (req, res, next) => {
 
   if (req.files?.length) {
     const cloudinaryResponses = await uploadMultipleFilesCloudinary(
-      req.files.map((file) => file.buffer),
+      req.files.map((file) => file.path),
       'chemClass/posts'
     );
 
@@ -242,7 +220,7 @@ exports.deletePost = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.uploadFileSubmission = upload.single('attachment');
+exports.uploadFileSubmission = multerUpload(50, true).single('attachment');
 
 exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
   if (!req.file) {
@@ -269,16 +247,10 @@ exports.postAssignmentSubmission = catchAsync(async (req, res, next) => {
     );
   }
 
-  let cloudinaryRes;
-
-  try {
-    cloudinaryRes = await uploadSingleFileCloudinary(
-      req.file.buffer,
-      'chemClass/assignmentSubmissions'
-    );
-  } catch (err) {
-    throw new AppError('Please try again later', 400);
-  }
+  const cloudinaryRes = await uploadSingleFileCloudinary(
+    req.file.path,
+    'chemClass/assignmentSubmissions'
+  );
 
   const submissionIndex = post.assignmentDetails.submissions.findIndex(
     (submission) => submission.student.toString() === req.user.id.toString()
