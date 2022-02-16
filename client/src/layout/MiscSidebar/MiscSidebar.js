@@ -8,7 +8,7 @@ const MiscSidebar = () => {
   const [day, setDay] = useState(() => {
     const today = new Date();
 
-    today.setHours(0);
+    today.setHours(12);
     today.setMinutes(0);
     today.setSeconds(0);
 
@@ -21,6 +21,7 @@ const MiscSidebar = () => {
 
   useEffect(() => {
     const fetchAssignmentSummary = async () => {
+      setError(false);
       setLoading(true);
       try {
         const res = await axios.get('/api/v1/classrooms/assignmentSummary');
@@ -43,7 +44,6 @@ const MiscSidebar = () => {
     const dayUpdated = new Date(day.getTime() - 12 * 60 * 60 * 1000);
 
     return (
-      !assignment.assignmentDetails.submitted &&
       dayUpdated <= due &&
       due < new Date(dayUpdated.getTime() + 24 * 60 * 60 * 1000)
     );
@@ -52,7 +52,12 @@ const MiscSidebar = () => {
   return (
     <div className={styles.miscSidebar}>
       <DayPicker onDayClick={dayClickHandler} selectedDays={day} />
-      <MiscSidebarClassesEvents assignments={filteredAssignments} day={day} />
+      <MiscSidebarClassesEvents
+        assignments={filteredAssignments}
+        day={day}
+        error={error}
+        loading={loading}
+      />
     </div>
   );
 };

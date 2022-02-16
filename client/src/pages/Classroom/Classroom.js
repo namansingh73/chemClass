@@ -66,11 +66,21 @@ const Classroom = (props) => {
           index={idx % 5}
         />
       ))}
-      <AddClass
-        onClassJoined={() => {
-          dispatch(classroomAction.loadClassrooms());
-        }}
-      />
+      {!props.archived && (
+        <AddClass
+          onClassJoined={() => {
+            dispatch(classroomAction.loadClassrooms());
+          }}
+        />
+      )}
+      {props.archived && filteredClassrooms.length === 1 && <div />}
+      {props.archived && filteredClassrooms.length === 0 && (
+        <Error
+          fullWidth
+          heading='Nothing to show'
+          text='Come back again later!'
+        />
+      )}
     </ClassroomContainer>
   );
 };

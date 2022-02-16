@@ -47,7 +47,7 @@ const LeftBlock = () => {
         })
       );
       dispatch(clasroomActions.loadClassrooms());
-      navigate(`${!subject.archived ? '/classrooms/archived' : '/classrooms'}`);
+      navigate(`${!subject.archived ? '/archived' : '/classrooms'}`);
     } catch (err) {
       if (err.response) {
         dispatch(

@@ -30,11 +30,7 @@ const App = () => {
           <Route path='/' exact element={<div />} />
           <Route path='/me' exact element={<Profile />} />
           <Route path='/classrooms' exact element={<Classroom />} />
-          <Route
-            path='/classrooms/archived'
-            exact
-            element={<Classroom archived />}
-          />
+          <Route path='/archived' exact element={<Classroom archived />} />
           <Route path='/classrooms/:id/:imageCnt' exact element={<Subject />} />
           <Route path='*' element={<Error />}></Route>
         </Route>

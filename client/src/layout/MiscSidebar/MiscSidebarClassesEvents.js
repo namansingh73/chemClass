@@ -13,29 +13,37 @@ const MiscSidebarClassesEvents = (props) => {
   return (
     <div className={styles.classesEvents}>
       <h2 className={styles.heading}>Assignments' status</h2>
-      <div>
-        <MiscSidebarClassEventItem
-          type='progress'
-          percentage={
-            props.assignments.length === 0
-              ? 100
-              : parseInt((countCompleted * 100) / props.assignments.length)
-          }
-          title='Progress'
-          color='yellowOrange'
-          dateTime={prettyDate(props.day, false)}
-        />
-
-        {props.assignments.map((assignment) => (
+      {props.loading && <p>Loading...</p>}
+      {!props.loading && props.error && (
+        <p style={{ color: 'var(--color-red)' }}>Error, Cannot load status!</p>
+      )}
+      {!props.loading && !props.error && (
+        <div>
           <MiscSidebarClassEventItem
-            key={assignment._id}
-            type='assignment'
-            title={assignment.classroom.name}
-            dateTime={formattedTime(assignment.assignmentDetails.due)}
-            redirectTo={`/classrooms/${assignment.classroom._id}/0/#post-${assignment._id}`}
+            type='progress'
+            percentage={
+              props.assignments.length === 0
+                ? 100
+                : parseInt((countCompleted * 100) / props.assignments.length)
+            }
+            title='Progress'
+            color='yellowOrange'
+            dateTime={prettyDate(props.day, false)}
           />
-        ))}
-      </div>
+
+          {props.assignments
+            .filter((assignment) => !assignment.assignmentDetails.submitted)
+            .map((assignment) => (
+              <MiscSidebarClassEventItem
+                key={assignment._id}
+                type='assignment'
+                title={assignment.classroom.name}
+                dateTime={formattedTime(assignment.assignmentDetails.due)}
+                redirectTo={`/classrooms/${assignment.classroom._id}/0/#post-${assignment._id}`}
+              />
+            ))}
+        </div>
+      )}
     </div>
   );
 };

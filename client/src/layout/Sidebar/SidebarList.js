@@ -37,7 +37,7 @@ function SidebarList() {
       </li>
       <li className={styles.sidebarListItem}>
         <NavLink
-          to='/classrooms/archived'
+          to='/archived'
           className={({ isActive }) =>
             `${styles.sidebarListLink} ${
               isActive ? styles.sidebarListLink__active : ''

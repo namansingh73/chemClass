@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Card from '../../layout/Card/Card';
 import avatar from './avatar.png';
@@ -10,7 +11,7 @@ const SidebarProfile = () => {
   const [firstName, lastName] = user.name.split(' ');
 
   return (
-    <div className={styles.textLink}>
+    <Link to='/me' className={styles.textLink}>
       <Card className={styles.sidebarProfile}>
         <img
           src={user?.photo?.url || avatar}
@@ -22,7 +23,7 @@ const SidebarProfile = () => {
           <br /> {lastName}
         </p>
       </Card>
-    </div>
+    </Link>
   );
 };
 
