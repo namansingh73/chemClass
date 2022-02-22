@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import DayPicker from 'react-day-picker';
 import MiscSidebarClassesEvents from './MiscSidebarClassesEvents';
 import styles from './MiscSidebar.module.css';
 
 const MiscSidebar = () => {
+  const [divOpenResponsive, setDivOpenResponsive] = useState(false);
+
   const [day, setDay] = useState(() => {
     const today = new Date();
 
@@ -50,15 +52,35 @@ const MiscSidebar = () => {
   });
 
   return (
-    <div className={styles.miscSidebar}>
-      <DayPicker onDayClick={dayClickHandler} selectedDays={day} />
-      <MiscSidebarClassesEvents
-        assignments={filteredAssignments}
-        day={day}
-        error={error}
-        loading={loading}
-      />
-    </div>
+    <Fragment>
+      <div
+        className={`${styles.miscSidebar} ${
+          divOpenResponsive && styles.miscSidebar__opened
+        }`}
+      >
+        <DayPicker onDayClick={dayClickHandler} selectedDays={day} />
+        <MiscSidebarClassesEvents
+          assignments={filteredAssignments}
+          day={day}
+          error={error}
+          loading={loading}
+        />
+      </div>
+      <button
+        className={`${styles.responsiveButton} ${
+          divOpenResponsive && styles.responsiveButton__opened
+        }`}
+        onClick={() =>
+          setDivOpenResponsive((divOpenResponsive) => !divOpenResponsive)
+        }
+      >
+        {divOpenResponsive ? (
+          <Fragment>&gt;</Fragment>
+        ) : (
+          <Fragment>&lt;</Fragment>
+        )}
+      </button>
+    </Fragment>
   );
 };
 

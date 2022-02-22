@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import classroomActions from '../../store/classroom/classroom-actions';
 import { Outlet } from 'react-router-dom';
@@ -8,6 +8,12 @@ import MiscSidebar from '../MiscSidebar/MiscSidebar';
 import styles from './Main.module.css';
 
 const Main = (props) => {
+  const [sidebarOpenResponsive, setSidebarOpenResponsive] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpenResponsive((sidebarOpenResponsive) => !sidebarOpenResponsive);
+  };
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,9 +22,12 @@ const Main = (props) => {
 
   return (
     <Fragment>
-      <Navbar />
+      <Navbar
+        toggleSidebar={toggleSidebar}
+        sidebarOpenResponsive={sidebarOpenResponsive}
+      />
       <div className={styles.backgroundContainer} />
-      <Sidebar />
+      <Sidebar sidebarOpenResponsive={sidebarOpenResponsive} />
       <main className={styles.main}>
         <Outlet />
       </main>

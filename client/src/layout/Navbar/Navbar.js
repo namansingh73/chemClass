@@ -4,10 +4,13 @@ import Logo from './Logo';
 import Search from './Search';
 import Notifications from './Notifications';
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <nav className={styles.nav}>
-      <Logo />
+      <Logo
+        toggleSidebar={props.toggleSidebar}
+        sidebarOpenResponsive={props.sidebarOpenResponsive}
+      />
       <Search />
       <Notifications />
     </nav>

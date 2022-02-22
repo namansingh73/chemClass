@@ -7,6 +7,13 @@
   padding: 3rem 0;
 }
 
+/* 600 / 16 = 37.5em */
+@media screen and (max-width: 37.5em) {
+  .outerContainer {
+    align-items: flex-start;
+  }
+}
+
 .mainContainer {
   width: 80vw;
   display: grid;
@@ -18,8 +25,23 @@
   background-color: var(--color-white);
 }
 
+/* 600 / 16 = 37.5em */
+@media screen and (max-width: 37.5em) {
+  .mainContainer {
+    display: block;
+    width: 90vw;
+  }
+}
+
 .leftContainer {
   padding: 2rem 19%;
+}
+
+/* 600 / 16 = 37.5em */
+@media screen and (max-width: 37.5em) {
+  .leftContainer {
+    padding: 3rem 10%;
+  }
 }
 
 .rightContainer {
@@ -27,6 +49,13 @@
   background-size: cover;
   height: 100%;
   border-radius: 2rem;
+}
+
+/* 800 / 16 = 50em */
+@media screen and (max-width: 50em) {
+  .rightContainer {
+    background: none;
+  }
 }
 
 .logo {

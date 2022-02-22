@@ -7,6 +7,20 @@
   /* z-index: 10; */
 }
 
+/* 1150 / 16 = 71.875em */
+@media screen and (max-width: 71.875em) {
+  .main {
+    margin-right: 0;
+  }
+}
+
+/* 850 / 16 = 53.125em */
+@media screen and (max-width: 53.125em) {
+  .main {
+    margin-left: 0;
+  }
+}
+
 .backgroundContainer {
   background-color: var(--color-grey-light-2);
   border-top-left-radius: 3vw;
@@ -18,4 +32,19 @@
   width: calc(100% - 25rem - 31.5rem);
   height: calc(100vh - 8.5rem);
   z-index: -5;
+}
+
+/* 1150 / 16 = 71.875em */
+@media screen and (max-width: 71.875em) {
+  .backgroundContainer {
+    width: calc(100% - 25rem);
+  }
+}
+
+/* 850 / 16 = 53.125em */
+@media screen and (max-width: 53.125em) {
+  .backgroundContainer {
+    left: 0;
+    width: 100%;
+  }
 }

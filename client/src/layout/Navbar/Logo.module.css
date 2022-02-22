@@ -16,3 +16,62 @@
   margin-left: 1rem;
   font-size: 1.5rem;
 }
+
+.hamburger {
+  align-self: stretch;
+  display: none;
+}
+
+.hamburgerIcon {
+  position: relative;
+}
+
+/* 850 / 16 = 53.125em */
+@media screen and (max-width: 53.125em) {
+  .hamburger {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+  }
+}
+
+.hamburgerIcon,
+.hamburgerIcon::after,
+.hamburgerIcon::before {
+  border-radius: 0.5rem;
+  width: 3rem;
+  height: 0.4rem;
+  transition: all 0.2s;
+  background-color: var(--color-grey-dark-1);
+}
+
+.hamburgerIcon::after,
+.hamburgerIcon::before {
+  position: absolute;
+  left: 0;
+  display: block;
+  content: '';
+}
+
+.hamburgerIcon::before {
+  top: -1rem;
+}
+
+.hamburgerIcon::after {
+  bottom: -1rem;
+}
+
+.hamburgerIcon__cross {
+  background-color: transparent;
+}
+
+.hamburgerIcon__cross::before {
+  top: 0;
+  transform: rotate(135deg);
+}
+
+.hamburgerIcon__cross::after {
+  top: 0;
+  transform: rotate(-135deg);
+}

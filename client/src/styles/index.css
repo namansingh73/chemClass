@@ -16,10 +16,16 @@ html {
   font-size: 62.5%; /* 10px / 16px = 62.5%, setting definiton of 1rem */
 }
 
+/* 600 / 16 = 37.5em */
+@media screen and (max-width: 37.5em) {
+  html {
+    font-size: 55%;
+  }
+}
+
 /* Setting box sizing border box so that everyone can inherit */
 body {
   box-sizing: border-box;
-  user-select: none;
   overflow-y: scroll;
 }
 
