@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import Linkify from 'linkify-react';
 import alertActions from '../../../store/alert/alert-actions';
 import subjectActions from '../../../store/subject/subject-actions';
 import commentAuthor from './commentAuthor.png';
@@ -66,7 +67,9 @@ const CommentItem = (props) => {
           )}
         </div>
 
-        <div className={styles.commentBody}>{props.comment.text}</div>
+        <div className={styles.commentBody}>
+          <Linkify options={{ target: '_blank' }}>{props.comment.text}</Linkify>
+        </div>
       </div>
     </div>
   );

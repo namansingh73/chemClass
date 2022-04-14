@@ -10,6 +10,7 @@
     "axios": "^0.25.0",
     "chemclass": "file:..",
     "fuse.js": "^6.5.3",
+    "linkify-react": "^3.0.4",
     "react": "^17.0.2",
     "react-day-picker": "^7.4.10",
     "react-dom": "^17.0.2",
