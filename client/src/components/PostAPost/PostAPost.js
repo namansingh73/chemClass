@@ -21,7 +21,7 @@ const PostAPost = (props) => {
   const [loading, setLoading] = useState(false);
   const textareaChangeHandler = (e) => {
     e.target.style.height = 0;
-    e.target.style.height = e.target.scrollHeight + 'px';
+    e.target.style.height = e.target.scrollHeight + 5 + 'px';
     setText(e.target.value);
   };
 

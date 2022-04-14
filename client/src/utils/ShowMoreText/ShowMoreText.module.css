@@ -1,0 +1,15 @@
+.btn {
+	background: none;
+	outline: none;
+	border: none;
+	line-height: inherit;
+	letter-spacing: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	color: var(--color-blue-darker);
+	cursor: pointer;
+}
+
+.btn:hover {
+	text-decoration: underline;
+}

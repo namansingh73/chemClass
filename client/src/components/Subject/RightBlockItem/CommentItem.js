@@ -6,6 +6,7 @@ import alertActions from '../../../store/alert/alert-actions';
 import subjectActions from '../../../store/subject/subject-actions';
 import commentAuthor from './commentAuthor.png';
 import prettyDate from '../../../utils/HelperFunctions/prettyDate';
+import ShowMoreText from '../../../utils/ShowMoreText/ShowMoreText';
 import styles from './CommentItem.module.css';
 
 const CommentItem = (props) => {
@@ -68,7 +69,9 @@ const CommentItem = (props) => {
         </div>
 
         <div className={styles.commentBody}>
-          <Linkify options={{ target: '_blank' }}>{props.comment.text}</Linkify>
+          <Linkify options={{ target: '_blank' }}>
+            <ShowMoreText text={props.comment.text} />
+          </Linkify>
         </div>
       </div>
     </div>
